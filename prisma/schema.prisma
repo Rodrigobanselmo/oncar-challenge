@@ -15,7 +15,7 @@ model Car {
   year String
   kilometers Int
   fuel String
-  desc String
+  desc String?
   updatedAt  DateTime   @updatedAt
   created_at DateTime @default(now())
   modelId Int
