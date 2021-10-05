@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength } from 'class-validator';
+import { IsString, Length, MaxLength } from 'class-validator';
 
 export class CreateBrandDto {
   @ApiProperty({ description: 'car brand.' })
   @IsString()
-  @MaxLength(50)
+  @Length(1, 50)
   readonly brand: string;
 }

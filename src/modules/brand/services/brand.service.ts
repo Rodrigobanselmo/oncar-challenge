@@ -1,30 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { CreateBrandDto } from '../dto/create-brand.dto';
+import { FindOptionsBrandDto } from '../dto/find-options-brand.dto';
 import { UpdateBrandDto } from '../dto/update-brand.dto';
 import { BrandRepository } from '../repositories/BrandRepository';
 
 @Injectable()
 export class BrandService {
-  constructor(private readonly userRepository: BrandRepository) {}
+  constructor(private readonly brandRepository: BrandRepository) {}
 
-  create(createBrandDto: CreateBrandDto) {
-    return 'This action adds a new brand';
+  async create({ brand }: CreateBrandDto) {
+    const existingBrand = await this.brandRepository.findByBrand(brand);
+
+    if (existingBrand) throw new BadRequestException('Brand already exists');
+
+    return this.brandRepository.create({ brand });
   }
 
   findAll() {
-    return `This action returns all brand`;
+    return this.brandRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} brand`;
+  async findOne(id: number, findOptionsBrandDto: FindOptionsBrandDto) {
+    const brand = await this.brandRepository.findById(id, findOptionsBrandDto);
+
+    if (!brand) throw new NotFoundException('Brand not found');
+
+    return brand;
   }
 
-  update(id: number, updateBrandDto: UpdateBrandDto) {
-    return `This action updates a #${id} brand`;
+  async update(id: number, updateBrandDto: UpdateBrandDto) {
+    const brand = await this.brandRepository.findById(id);
+
+    if (!brand) throw new NotFoundException('Brand not found');
+
+    return this.brandRepository.update(id, updateBrandDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} brand`;
+  async remove(id: number) {
+    const brandDeleted = await this.brandRepository.deleteById(id);
+
+    if (!brandDeleted) throw new NotFoundException('Brand not found');
+    return this.brandRepository.deleteById(id);
   }
 }

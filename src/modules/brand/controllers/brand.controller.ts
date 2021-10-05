@@ -1,3 +1,5 @@
+import { ValidatePayloadExistsPipe } from './../../../shared/pipes/validates-payload-exists.pipe';
+import { FindOptionsBrandDto } from './../dto/find-options-brand.dto';
 import {
   Controller,
   Get,
@@ -27,12 +29,18 @@ export class BrandController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.brandService.findOne(+id);
+  findOne(
+    @Param('id', ParseIntPipe) id: string,
+    @Body() findOptionsBrandDto: FindOptionsBrandDto,
+  ) {
+    return this.brandService.findOne(+id, findOptionsBrandDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBrandDto: UpdateBrandDto) {
+  update(
+    @Param('id') id: string,
+    @Body(ValidatePayloadExistsPipe) updateBrandDto: UpdateBrandDto,
+  ) {
     return this.brandService.update(+id, updateBrandDto);
   }
 

@@ -4,7 +4,8 @@ import { UpdateBrandDto } from '../dto/update-brand.dto';
 import { PrismaService } from './../../../prisma/prisma.service';
 import { CreateBrandDto } from './../dto/create-brand.dto';
 import { IBrandRepository } from './IBrandRepository';
-import { Brand } from '.prisma/client';
+import { Brand, Prisma } from '.prisma/client';
+import { FindOptionsBrandDto } from '../dto/find-options-brand.dto';
 
 @Injectable()
 export class BrandRepository implements IBrandRepository {
@@ -27,11 +28,29 @@ export class BrandRepository implements IBrandRepository {
     return this.prisma.brand.findMany();
   }
 
-  findById(id: number): Promise<Brand> {
-    return this.prisma.brand.findUnique({ where: { id } });
+  findById(
+    id: number,
+    findOptionsBrandDto: FindOptionsBrandDto = { cars: false, models: false },
+  ): Promise<Brand> {
+    const { cars, models } = findOptionsBrandDto;
+
+    return this.prisma.brand.findUnique({
+      where: { id },
+      include: { cars, models },
+    });
   }
 
-  async deleteById(id: number): Promise<void> {
-    await this.prisma.brand.delete({ where: { id } });
+  findByBrand(brand: string): Promise<Brand> {
+    return this.prisma.brand.findUnique({ where: { brand } });
+  }
+
+  async deleteById(id: number): Promise<Prisma.Prisma__BrandClient<Brand>> {
+    return this.prisma.brand.delete({ where: { id } });
   }
 }
+
+// : cars
+//           ? {
+//               take: 10,
+//             }
+//           : false,

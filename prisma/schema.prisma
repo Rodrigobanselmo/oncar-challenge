@@ -27,7 +27,7 @@ model Car {
 
 model Brand {
   id    Int     @default(autoincrement()) @id
-  brand String  
+  brand String  @unique
   created_at DateTime @default(now())
   cars Car[]
   models Model[]
@@ -41,4 +41,6 @@ model Model {
   brandId Int
   brand Brand @relation(fields: [brandId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   cars Car[]
+  
+  @@unique([model, brandId], name: "Model_model_brandId_key")
 }
