@@ -1,3 +1,4 @@
+import { ValidatePayloadExistsPipe } from './../../../shared/pipes/validates-payload-exists.pipe';
 import { ModelsService } from '../services/models.service';
 import {
   Controller,
@@ -7,36 +8,39 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateModelDto } from '../dto/create-model.dto';
 import { UpdateModelDto } from '../dto/update-model.dto';
+import { ModelEntity } from '../entities/model.entity';
 
 @Controller('models')
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
 
   @Post()
-  create(@Body() createModelDto: CreateModelDto) {
-    return this.modelsService.create(createModelDto);
+  async create(@Body() createModelDto: CreateModelDto) {
+    return new ModelEntity(await this.modelsService.create(createModelDto));
   }
 
   @Get()
-  findAll() {
-    return this.modelsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.modelsService.findOne(+id);
+  async findAll() {
+    const allModels = await this.modelsService.findAll();
+    return allModels.map((model) => new ModelEntity(model));
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateModelDto: UpdateModelDto) {
-    return this.modelsService.update(+id, updateModelDto);
+  async update(
+    @Param('id', ParseIntPipe) id: string,
+    @Body(ValidatePayloadExistsPipe) updateModelDto: UpdateModelDto,
+  ) {
+    return new ModelEntity(
+      await this.modelsService.update(+id, updateModelDto),
+    );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.modelsService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: string) {
+    return new ModelEntity(await this.modelsService.remove(+id));
   }
 }
