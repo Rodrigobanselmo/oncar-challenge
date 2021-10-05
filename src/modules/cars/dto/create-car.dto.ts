@@ -1,12 +1,5 @@
-import { FuelOptions } from './../constants/fuel.constants';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEnum,
-  IsOptional,
-  IsString,
-  Length,
-  MaxLength,
-} from 'class-validator';
+import { IsOptional, IsString, Length, MaxLength } from 'class-validator';
 
 export class CreateCarDto {
   @ApiProperty({ description: 'car plate.' })
