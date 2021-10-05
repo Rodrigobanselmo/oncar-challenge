@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { CarsService } from '../service/cars.service';
+import { CarsService } from '../services/cars.service';
 import { CreateCarDto } from '../dto/create-car.dto';
 import { UpdateCarDto } from '../dto/update-car.dto';
 

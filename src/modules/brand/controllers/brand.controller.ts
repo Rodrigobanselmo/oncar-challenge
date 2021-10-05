@@ -6,8 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { BrandService } from '../service/brand.service';
+import { BrandService } from '../services/brand.service';
 import { CreateBrandDto } from '../dto/create-brand.dto';
 import { UpdateBrandDto } from '../dto/update-brand.dto';
 
@@ -26,7 +27,7 @@ export class BrandController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.brandService.findOne(+id);
   }
 
