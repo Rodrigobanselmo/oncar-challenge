@@ -19,6 +19,8 @@ model Car {
   updatedAt  DateTime   @updatedAt
   created_at DateTime @default(now())
   modelId Int
+  brandId Int
+  brand Brand @relation(fields: [brandId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   model Model @relation(fields: [modelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 }
 
@@ -27,6 +29,7 @@ model Brand {
   id    Int     @default(autoincrement()) @id
   brand String  
   created_at DateTime @default(now())
+  cars Car[]
   models Model[]
 }
 
