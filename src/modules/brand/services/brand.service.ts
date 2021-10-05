@@ -42,7 +42,7 @@ export class BrandService {
   }
 
   async remove(id: number) {
-    const brandDeleted = await this.brandRepository.deleteById(id);
+    const brandDeleted = await this.brandRepository.findById(id);
 
     if (!brandDeleted) throw new NotFoundException('Brand not found');
     return this.brandRepository.deleteById(id);
