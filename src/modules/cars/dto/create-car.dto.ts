@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, Length, MaxLength } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  Length,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateCarDto {
   @ApiProperty({ description: 'car plate.' })
@@ -12,8 +18,8 @@ export class CreateCarDto {
   readonly color: string;
 
   @ApiProperty({ description: 'car price.' })
-  @IsString()
-  readonly price: string;
+  @IsNumber()
+  readonly price: number;
 
   @ApiProperty({
     example: '2020/2021',

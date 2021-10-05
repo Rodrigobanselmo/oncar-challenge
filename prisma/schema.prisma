@@ -11,7 +11,7 @@ model Car {
   id    Int     @default(autoincrement()) @id
   plate String @unique
   color String
-  price String
+  price Int
   year String
   kilometers Int
   fuel String
