@@ -1,11 +1,17 @@
+import { FuelOptions } from './../constants/fuel.constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEnum,
+  IsOptional,
+  IsString,
+  Length,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateCarDto {
   @ApiProperty({ description: 'car plate.' })
   @IsString()
-  @MaxLength(8)
-  @MinLength(7)
+  @Length(7, 8)
   readonly plate: string;
 
   @ApiProperty({ description: 'car color.' })
@@ -26,6 +32,7 @@ export class CreateCarDto {
   readonly kilometers: string;
 
   @ApiProperty({ description: 'car fuel type.' })
+  // @IsIn(FuelOptions[])
   @IsString()
   readonly fuel: string;
 

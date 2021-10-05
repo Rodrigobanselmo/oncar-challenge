@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
+
 import { CreateBrandDto } from '../dto/create-brand.dto';
 import { UpdateBrandDto } from '../dto/update-brand.dto';
+import { BrandRepository } from '../repositories/BrandRepository';
 
 @Injectable()
 export class BrandService {
+  constructor(private readonly userRepository: BrandRepository) {}
+
   create(createBrandDto: CreateBrandDto) {
     return 'This action adds a new brand';
   }
