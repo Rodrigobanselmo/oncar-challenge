@@ -15,7 +15,10 @@ export class CreateCarDto {
   @IsString()
   readonly price: string;
 
-  @ApiProperty({ description: 'manufacture year of the car, ex: "2001/2002"' })
+  @ApiProperty({
+    example: '2020/2021',
+    description: 'manufacture year of the car',
+  })
   @MaxLength(9)
   @IsString()
   readonly year: string;
