@@ -1,4 +1,4 @@
-import { ModelsService } from './../services/models.service';
+import { ModelsService } from '../services/models.service';
 import {
   Controller,
   Get,

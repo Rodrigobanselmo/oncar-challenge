@@ -1,4 +1,4 @@
-import { ModelsService } from './../services/models.service';
+import { ModelsService } from '../services/models.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModelsController } from './models.controller';
 

@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { CarsModule } from './modules/cars/cars.module';
 import { BrandModule } from './modules/brand/brand.module';
-import { ModelsModule } from './modules/models/models.module';
+import { ModelsModule } from './modules/modelsCar/models.module';
 
 @Module({
   imports: [
