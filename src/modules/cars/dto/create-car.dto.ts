@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsString,
   Length,
+  Matches,
   MaxLength,
 } from 'class-validator';
 
@@ -22,9 +23,10 @@ export class CreateCarDto {
   readonly price: number;
 
   @ApiProperty({
-    example: '2020/2021',
+    example: ['2020/2021', '20/21'],
     description: 'manufacture year of the car',
   })
+  @Matches(/\d*\/\d*/g)
   @MaxLength(9)
   @IsString()
   readonly year: string;
