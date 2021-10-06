@@ -1,9 +1,7 @@
 export enum FuelOptions {
-  Diesel = 'diesel',
+  DIESEL = 'diesel',
   ETHNOL = 'etanol',
   FLEX = 'flex',
   GAS = 'gás',
-  GASOLINE = 'admin',
+  GASOLINE = 'gasoline',
 }
-
-export const FUEL_OPTIONS = ['diesel', 'etanol', 'flex', 'gás', 'admin'];
