@@ -49,7 +49,7 @@ model Simulations {
   cpf Int
   phone Int
   birthDate String
-  email Int 
+  email String 
   income Int
   haveHelp Boolean
   dirtyName Boolean
