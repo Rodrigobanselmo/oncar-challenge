@@ -1,5 +1,5 @@
 import { IncludesQueryDto } from '../dto/includes-query-car.dto';
-import { ModelRepository } from './../../modelsCar/repositories/ModelRepository';
+import { ModelRepository } from '../../modelCar/repositories/ModelRepository';
 import {
   BadRequestException,
   Injectable,

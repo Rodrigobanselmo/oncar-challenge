@@ -1,5 +1,5 @@
-import { ParamsModelDto } from './../dto/params-model.dto';
-import { ValidatePayloadExistsPipe } from './../../../shared/pipes/validates-payload-exists.pipe';
+import { ParamsModelDto } from '../dto/params-model.dto';
+import { ValidatePayloadExistsPipe } from '../../../shared/pipes/validates-payload-exists.pipe';
 import { ModelsService } from '../services/models.service';
 import {
   Controller,
@@ -35,7 +35,10 @@ export class ModelsController {
     @Body(ValidatePayloadExistsPipe) updateModelDto: UpdateModelDto,
   ) {
     return new ModelEntity(
-      await this.modelsService.update(paramsModelDto, updateModelDto),
+      await this.modelsService.incrementNumRequest(
+        paramsModelDto,
+        updateModelDto,
+      ),
     );
   }
 

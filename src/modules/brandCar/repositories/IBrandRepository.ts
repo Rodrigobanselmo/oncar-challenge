@@ -1,6 +1,6 @@
 import { IncludesQueryBrandDto } from '../dto/includes-query-brand.dto';
 import { Brand, Prisma } from '.prisma/client';
-import { CreateBrandDto } from './../dto/create-brand.dto';
+import { CreateBrandDto } from '../dto/create-brand.dto';
 
 interface IBrandRepository {
   create(createBrandDto: CreateBrandDto): Promise<Brand>;

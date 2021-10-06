@@ -1,4 +1,4 @@
-import { ModelRepository } from './../modelsCar/repositories/ModelRepository';
+import { ModelRepository } from '../modelCar/repositories/ModelRepository';
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
