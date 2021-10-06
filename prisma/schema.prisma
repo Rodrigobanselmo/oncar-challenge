@@ -42,3 +42,32 @@ model Model {
   
   @@id([name, brandName], name: "Model_model_brand_key")
 }
+
+model Simulations {
+  id    Int     @default(autoincrement()) @id
+  name String 
+  cpf Int
+  phone Int
+  birthDate String
+  email Int 
+  income Int
+  haveHelp Boolean
+  dirtyName Boolean
+  updated_at  DateTime   @updatedAt
+  created_at DateTime @default(now())
+  address Address?
+}
+
+model Address {
+  id    Int     @default(autoincrement()) @id
+  cep Int 
+  address String
+  number Int
+  complement String
+  neighbour String
+  city String
+  estate String
+  simulationId Int
+  simulation Simulations @relation(fields: [simulationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+}
