@@ -13,35 +13,96 @@ import { FilterQueryDto } from '../dto/filter-query.dto-car';
 export class CarsRepository implements ICarsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createCarDto: CreateCarDto) {
-    try {
-      return await this.prisma.car.create({
-        data: createCarDto,
-      });
-    } catch (e) {
-      if (e.code === 'P2003')
-        // throw new BadRequestException(
-        //   'The model needs to be part of the brand',
-        // );
-        throw new BadRequestException(`Model or brand does not exists`);
-      if (e.code === 'P2002')
-        throw new BadRequestException(
-          `Car with plate ${createCarDto.plate} already exists`,
-        );
-      throw new Error(e);
-    }
+  async create({ brandName, modelName, ...restCreateCarDto }: CreateCarDto) {
+    return await this.prisma.car.create({
+      data: {
+        ...restCreateCarDto,
+        model: {
+          connectOrCreate: {
+            create: {
+              name: modelName,
+              brand: {
+                connectOrCreate: {
+                  create: {
+                    name: brandName,
+                  },
+                  where: {
+                    name: brandName,
+                  },
+                },
+              },
+            },
+            where: {
+              Model_model_brand_key: {
+                name: modelName,
+                brandName,
+              },
+            },
+          },
+        },
+        brand: {
+          connectOrCreate: {
+            create: {
+              name: brandName,
+            },
+            where: {
+              name: brandName,
+            },
+          },
+        },
+      },
+    });
   }
 
-  async update(id: number, updateCarDto: UpdateCarDto): Promise<Car> {
-    try {
-      return await this.prisma.car.update({
-        where: { id: id },
-        data: updateCarDto,
-      });
-    } catch (e) {
-      if (e.code === 'P2025') throw new BadRequestException(`Car not found`);
-      throw new Error(e);
-    }
+  async update(
+    id: number,
+    { brandName, modelName, ...restUpdateCarDto }: UpdateCarDto,
+  ): Promise<Car> {
+    return await this.prisma.car.update({
+      where: { id: id },
+      data: {
+        ...restUpdateCarDto,
+        model:
+          !modelName || !brandName
+            ? undefined
+            : {
+                connectOrCreate: {
+                  create: {
+                    name: modelName,
+                    brand: {
+                      connectOrCreate: {
+                        create: {
+                          name: brandName,
+                        },
+                        where: {
+                          name: brandName,
+                        },
+                      },
+                    },
+                  },
+                  where: {
+                    Model_model_brand_key: {
+                      name: modelName,
+                      brandName,
+                    },
+                  },
+                },
+              },
+        brand:
+          !modelName || !brandName
+            ? undefined
+            : {
+                connectOrCreate: {
+                  create: {
+                    name: brandName,
+                  },
+                  where: {
+                    name: brandName,
+                  },
+                },
+              },
+      },
+    });
   }
 
   findAll(
@@ -86,11 +147,6 @@ export class CarsRepository implements ICarsRepository {
   }
 
   async deleteById(id: number): Promise<Prisma.Prisma__CarClient<Car>> {
-    try {
-      return await this.prisma.car.delete({ where: { id } });
-    } catch (e) {
-      if (e.code === 'P2025') throw new BadRequestException(`Car not found`);
-      throw new Error(e);
-    }
+    return await this.prisma.car.delete({ where: { id } });
   }
 }

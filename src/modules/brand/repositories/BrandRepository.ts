@@ -11,15 +11,9 @@ export class BrandRepository implements IBrandRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create({ name }: CreateBrandDto) {
-    try {
-      return await this.prisma.brand.create({
-        data: { name },
-      });
-    } catch (e) {
-      if (e.code === 'P2002')
-        throw new BadRequestException(`Brand with name ${name} already exists`);
-      throw new Error(e);
-    }
+    return await this.prisma.brand.create({
+      data: { name },
+    });
   }
 
   findAll(): Promise<Brand[]> {
@@ -34,23 +28,14 @@ export class BrandRepository implements IBrandRepository {
 
     return this.prisma.brand.findUnique({
       where: { name },
-      include: { cars, models },
+      include: {
+        cars: cars === 'get' ? true : false,
+        models: models === 'get' ? true : false,
+      },
     });
   }
 
   async deleteByName(name: string): Promise<Prisma.Prisma__BrandClient<Brand>> {
-    try {
-      return await this.prisma.brand.delete({ where: { name } });
-    } catch (e) {
-      console.log(`e`, e);
-      if (e.code === 'P2025') throw new BadRequestException(`Brand not found`);
-      throw new Error(e);
-    }
+    return await this.prisma.brand.delete({ where: { name } });
   }
 }
-
-// : cars
-//           ? {
-//               take: 10,
-//             }
-//           : false,

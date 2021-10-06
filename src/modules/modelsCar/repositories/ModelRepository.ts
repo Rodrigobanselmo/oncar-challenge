@@ -11,9 +11,21 @@ import { ParamsModelDto } from '../dto/params-model.dto';
 export class ModelRepository implements IModelRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createModelDto: CreateModelDto) {
+  create({ name, brandName }: CreateModelDto) {
     return this.prisma.model.create({
-      data: createModelDto,
+      data: {
+        name,
+        brand: {
+          connectOrCreate: {
+            create: {
+              name: brandName,
+            },
+            where: {
+              name: brandName,
+            },
+          },
+        },
+      },
     });
   }
 
@@ -64,9 +76,3 @@ export class ModelRepository implements IModelRepository {
     });
   }
 }
-
-// : cars
-//           ? {
-//               take: 10,
-//             }
-//           : false,
