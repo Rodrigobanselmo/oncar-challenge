@@ -17,7 +17,10 @@ export class ModelsService {
     return this.modelRepository.findAll();
   }
 
-  async update(paramsModelDto: ParamsModelDto, updateModelDto: UpdateModelDto) {
+  async incrementNumRequest(
+    paramsModelDto: ParamsModelDto,
+    updateModelDto: UpdateModelDto,
+  ) {
     return this.modelRepository.updateByBrandAndModel(
       paramsModelDto,
       updateModelDto,

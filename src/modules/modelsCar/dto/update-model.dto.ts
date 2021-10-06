@@ -1,6 +1,8 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateModelDto } from './create-model.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber } from 'class-validator';
 
-export class UpdateModelDto extends PartialType(CreateModelDto) {
-  num_requests?: number;
+export class UpdateModelDto {
+  @ApiProperty({ description: 'number of request to increment.' })
+  @IsNumber()
+  num_requests: number;
 }

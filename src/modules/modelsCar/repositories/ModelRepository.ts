@@ -31,7 +31,7 @@ export class ModelRepository implements IModelRepository {
 
   updateByBrandAndModel(
     { brandName, modelName }: ParamsModelDto,
-    updateModelDto: UpdateModelDto,
+    { num_requests }: UpdateModelDto,
   ): Promise<Model> {
     return this.prisma.model.update({
       where: {
@@ -40,7 +40,11 @@ export class ModelRepository implements IModelRepository {
           brandName,
         },
       },
-      data: updateModelDto,
+      data: {
+        num_requests: {
+          increment: num_requests,
+        },
+      },
     });
   }
 
