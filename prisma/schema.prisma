@@ -18,29 +18,27 @@ model Car {
   desc String?
   updatedAt  DateTime   @updatedAt
   created_at DateTime @default(now())
-  modelId Int
-  brandId Int
-  brand Brand @relation(fields: [brandId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  model Model @relation(fields: [modelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  modelName String
+  brandName String
+  brand Brand @relation(fields: [brandName], references: [name], onDelete: Restrict, onUpdate: Cascade)
+  model Model @relation(fields: [modelName,brandName], references: [name, brandName], onDelete: Restrict, onUpdate: Cascade)
 }
 
 
 model Brand {
-  id    Int     @default(autoincrement()) @id
-  brand String  @unique
+  name String  @id
   created_at DateTime @default(now())
   cars Car[]
   models Model[]
 }
 
 model Model {
-  id    Int     @default(autoincrement()) @id
-  model String
-  num_requests Int
+  name String
+  num_requests Int @default(0)
   created_at DateTime @default(now())
-  brandId Int
-  brand Brand @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandName String
+  brand Brand @relation(fields: [brandName], references: [name], onDelete: Cascade, onUpdate: Cascade)
   cars Car[]
   
-  @@unique([model, brandId], name: "Model_model_brandId_key")
+  @@id([name, brandName], name: "Model_model_brand_key")
 }
