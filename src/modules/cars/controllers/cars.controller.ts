@@ -1,3 +1,4 @@
+import { FilterQueryDto } from './../dto/filter-query.dto';
 import { PaginationQueryDto } from '../dto/pagination-query.dto';
 import {
   Body,
@@ -25,8 +26,11 @@ export class CarsController {
   }
 
   @Get()
-  async findAll(@Query() paginationQuery: PaginationQueryDto) {
-    return this.carsService.findAll(paginationQuery);
+  async findAll(
+    @Query() paginationQuery: PaginationQueryDto,
+    @Query() filterQueryDto: FilterQueryDto,
+  ) {
+    return this.carsService.findAll(paginationQuery, filterQueryDto);
   }
 
   @Get(':id')
