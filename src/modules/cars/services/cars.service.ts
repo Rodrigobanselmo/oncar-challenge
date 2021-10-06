@@ -1,4 +1,4 @@
-import { IncludesQueryDto } from './../dto/includes-query.dto';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
 import { ModelRepository } from './../../modelsCar/repositories/ModelRepository';
 import {
   BadRequestException,
@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 
 import { CreateCarDto } from '../dto/create-car.dto';
-import { FilterQueryDto } from '../dto/filter-query.dto';
-import { PaginationQueryDto } from '../dto/pagination-query.dto';
+import { FilterQueryDto } from '../dto/filter-query.dto-car';
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { UpdateCarDto } from '../dto/update-car.dto';
 import { CarsRepository } from '../repositories/CarsRepository';
 
@@ -19,16 +19,8 @@ export class CarsService {
     private readonly modelRepository: ModelRepository,
   ) {}
 
-  async create({ brandId, modelId, ...rest }: CreateCarDto) {
-    // i don`t think here has the need os transactions to avoid concurrency issues,
-    // if something goes wrong will just send an error message
-    const model = await this.modelRepository.findById(modelId);
-
-    if (model.brandId !== brandId) {
-      throw new BadRequestException('The model needs to be part of the brand');
-    }
-
-    return this.carsRepository.create({ modelId, brandId, ...rest });
+  async create(createCarDto: CreateCarDto) {
+    return this.carsRepository.create(createCarDto);
   }
 
   findAll(

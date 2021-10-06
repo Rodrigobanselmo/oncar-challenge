@@ -1,8 +1,8 @@
-import { IncludesQueryDto } from './../dto/includes-query.dto';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
 import { Car, Prisma } from '.prisma/client';
-import { PaginationQueryDto } from 'src/modules/cars/dto/pagination-query.dto';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 import { CreateCarDto } from '../dto/create-car.dto';
-import { FilterQueryDto } from '../dto/filter-query.dto';
+import { FilterQueryDto } from '../dto/filter-query.dto-car';
 import { UpdateCarDto } from '../dto/update-car.dto';
 
 interface ICarsRepository {

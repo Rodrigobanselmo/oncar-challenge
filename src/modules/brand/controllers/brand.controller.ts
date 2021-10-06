@@ -1,20 +1,17 @@
-import { ValidatePayloadExistsPipe } from './../../../shared/pipes/validates-payload-exists.pipe';
-import { FindOptionsBrandDto } from './../dto/find-options-brand.dto';
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  ParseIntPipe,
+  Get,
+  Param,
+  Post,
   Query,
 } from '@nestjs/common';
-import { BrandService } from '../services/brand.service';
+
 import { CreateBrandDto } from '../dto/create-brand.dto';
-import { UpdateBrandDto } from '../dto/update-brand.dto';
+import { IncludesQueryBrandDto } from '../dto/includes-query-brand.dto';
 import { BrandEntity } from '../entities/brand.entity';
+import { BrandService } from '../services/brand.service';
 
 @Controller('brand')
 export class BrandController {
@@ -31,26 +28,18 @@ export class BrandController {
     return allBrands.map((brand) => new BrandEntity(brand));
   }
 
-  @Get(':id')
+  @Get(':name')
   async findOne(
-    @Param('id', ParseIntPipe) id: string,
-    @Query() findOptionsBrandDto: FindOptionsBrandDto,
+    @Param('name') name: string,
+    @Query() includesQueryBrandDto: IncludesQueryBrandDto,
   ) {
     return new BrandEntity(
-      await this.brandService.findOne(+id, findOptionsBrandDto),
+      await this.brandService.findOne(name, includesQueryBrandDto),
     );
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body(ValidatePayloadExistsPipe) updateBrandDto: UpdateBrandDto,
-  ) {
-    return new BrandEntity(await this.brandService.update(+id, updateBrandDto));
-  }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return new BrandEntity(await this.brandService.remove(+id));
+  @Delete(':name')
+  async remove(@Param('name') name: string) {
+    return new BrandEntity(await this.brandService.remove(name));
   }
 }

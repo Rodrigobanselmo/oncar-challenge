@@ -3,10 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class BrandEntity implements Brand {
   @ApiProperty()
-  id: number;
-
-  @ApiProperty()
-  brand: string;
+  name: string;
 
   @ApiProperty()
   created_at: Date;

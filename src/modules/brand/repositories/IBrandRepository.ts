@@ -1,17 +1,14 @@
-import { FindOptionsBrandDto } from './../dto/find-options-brand.dto';
-import { UpdateBrandDto } from './../dto/update-brand.dto';
+import { IncludesQueryBrandDto } from '../dto/includes-query-brand.dto';
 import { Brand, Prisma } from '.prisma/client';
 import { CreateBrandDto } from './../dto/create-brand.dto';
 
 interface IBrandRepository {
   create(createBrandDto: CreateBrandDto): Promise<Brand>;
-  update(id: number, updateBrandDto: UpdateBrandDto): Promise<Brand>;
   findAll(): Promise<Brand[]>;
-  findById(
-    id: number,
-    findOptionsBrandDto?: FindOptionsBrandDto,
+  findByName(
+    name: string,
+    includesQueryBrandDto?: IncludesQueryBrandDto,
   ): Promise<Brand | undefined>;
-  findByBrand(brand: string): Promise<Brand | undefined>;
-  deleteById(id: number): Promise<Prisma.Prisma__BrandClient<Brand>>;
+  deleteByName(name: string): Promise<Prisma.Prisma__BrandClient<Brand>>;
 }
 export { IBrandRepository };

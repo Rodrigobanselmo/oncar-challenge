@@ -3,10 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ModelEntity implements Model {
   @ApiProperty()
-  id: number;
-
-  @ApiProperty()
-  model: string;
+  name: string;
 
   @ApiProperty()
   num_requests: number;
@@ -15,7 +12,7 @@ export class ModelEntity implements Model {
   created_at: Date;
 
   @ApiProperty()
-  brandId: number;
+  brandName: string;
 
   constructor(partial: Partial<ModelEntity>) {
     Object.assign(this, partial);

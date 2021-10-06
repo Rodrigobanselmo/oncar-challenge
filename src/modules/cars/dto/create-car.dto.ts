@@ -45,11 +45,11 @@ export class CreateCarDto {
   @IsString()
   readonly desc?: string;
 
-  @ApiProperty({ description: 'car model id.' })
-  @IsNumber()
-  readonly modelId: number;
+  @ApiProperty({ description: 'car model name.' })
+  @IsString()
+  readonly modelName: string;
 
-  @ApiProperty({ description: 'car brand id.' })
-  @IsNumber()
-  readonly brandId: number;
+  @ApiProperty({ description: 'car brand name.' })
+  @IsString()
+  readonly brandName: string;
 }

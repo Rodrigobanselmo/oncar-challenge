@@ -1,4 +1,4 @@
-import { IncludesQueryDto } from './../dto/includes-query.dto';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
 import { CreateCarDto } from './../dto/create-car.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 
@@ -6,8 +6,8 @@ import { PrismaService } from './../../../prisma/prisma.service';
 import { Car, Prisma } from '.prisma/client';
 import { ICarsRepository } from './ICarsRepository';
 import { UpdateCarDto } from '../dto/update-car.dto';
-import { PaginationQueryDto } from 'src/modules/cars/dto/pagination-query.dto';
-import { FilterQueryDto } from '../dto/filter-query.dto';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+import { FilterQueryDto } from '../dto/filter-query.dto-car';
 
 @Injectable()
 export class CarsRepository implements ICarsRepository {
@@ -20,6 +20,9 @@ export class CarsRepository implements ICarsRepository {
       });
     } catch (e) {
       if (e.code === 'P2003')
+        // throw new BadRequestException(
+        //   'The model needs to be part of the brand',
+        // );
         throw new BadRequestException(`Model or brand does not exists`);
       if (e.code === 'P2002')
         throw new BadRequestException(
@@ -47,18 +50,18 @@ export class CarsRepository implements ICarsRepository {
     includesQueryDto: IncludesQueryDto,
   ): Promise<Car[]> {
     const { limit = 10, offset = 0 } = paginationQuery;
-    const { brandId, modelId } = filterQueryDto;
+    const { brandName, modelName } = filterQueryDto;
     const { brand, model } = includesQueryDto;
 
     return this.prisma.car.findMany({
       skip: offset,
       take: limit,
       where: {
-        brandId: {
-          equals: brandId,
+        brandName: {
+          equals: brandName,
         },
-        modelId: {
-          equals: modelId,
+        modelName: {
+          equals: modelName,
         },
       },
       include: {

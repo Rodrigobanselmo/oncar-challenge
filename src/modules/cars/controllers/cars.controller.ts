@@ -1,6 +1,6 @@
-import { IncludesQueryDto } from './../dto/includes-query.dto';
-import { FilterQueryDto } from './../dto/filter-query.dto';
-import { PaginationQueryDto } from '../dto/pagination-query.dto';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
+import { FilterQueryDto } from '../dto/filter-query.dto-car';
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import {
   Body,
   Controller,

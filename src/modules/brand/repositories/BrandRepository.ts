@@ -1,51 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { UpdateBrandDto } from '../dto/update-brand.dto';
 import { PrismaService } from './../../../prisma/prisma.service';
 import { CreateBrandDto } from './../dto/create-brand.dto';
 import { IBrandRepository } from './IBrandRepository';
 import { Brand, Prisma } from '.prisma/client';
-import { FindOptionsBrandDto } from '../dto/find-options-brand.dto';
+import { IncludesQueryBrandDto } from '../dto/includes-query-brand.dto';
 
 @Injectable()
 export class BrandRepository implements IBrandRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createBrandDto: CreateBrandDto) {
-    return this.prisma.brand.create({
-      data: createBrandDto,
-    });
-  }
-
-  update(id: number, updateBrandDto: UpdateBrandDto): Promise<Brand> {
-    return this.prisma.brand.update({
-      where: { id: id },
-      data: updateBrandDto,
-    });
+  async create({ name }: CreateBrandDto) {
+    try {
+      return await this.prisma.brand.create({
+        data: { name },
+      });
+    } catch (e) {
+      if (e.code === 'P2002')
+        throw new BadRequestException(`Brand with name ${name} already exists`);
+      throw new Error(e);
+    }
   }
 
   findAll(): Promise<Brand[]> {
     return this.prisma.brand.findMany();
   }
 
-  findById(
-    id: number,
-    findOptionsBrandDto: FindOptionsBrandDto = { cars: false, models: false },
+  findByName(
+    name: string,
+    includesQueryBrandDto: IncludesQueryBrandDto,
   ): Promise<Brand> {
-    const { cars, models } = findOptionsBrandDto;
+    const { cars, models } = includesQueryBrandDto;
 
     return this.prisma.brand.findUnique({
-      where: { id },
+      where: { name },
       include: { cars, models },
     });
   }
 
-  findByBrand(brand: string): Promise<Brand> {
-    return this.prisma.brand.findUnique({ where: { brand } });
-  }
-
-  async deleteById(id: number): Promise<Prisma.Prisma__BrandClient<Brand>> {
-    return this.prisma.brand.delete({ where: { id } });
+  async deleteByName(name: string): Promise<Prisma.Prisma__BrandClient<Brand>> {
+    try {
+      return await this.prisma.brand.delete({ where: { name } });
+    } catch (e) {
+      console.log(`e`, e);
+      if (e.code === 'P2025') throw new BadRequestException(`Brand not found`);
+      throw new Error(e);
+    }
   }
 }
 

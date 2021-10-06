@@ -1,3 +1,4 @@
+import { ParamsModelDto } from './../dto/params-model.dto';
 import { ModelRepository } from './../repositories/ModelRepository';
 import {
   BadRequestException,
@@ -15,35 +16,22 @@ export class ModelsService {
     private readonly modelRepository: ModelRepository,
   ) {}
 
-  async create({ model, brandId }: CreateModelDto) {
-    const existingBrand = await this.brandRepository.findById(brandId);
-    if (!existingBrand) throw new BadRequestException('Brand does not exists');
-
-    const existingModel = await this.modelRepository.findByBrandIdAndModel(
-      brandId,
-      model,
-    );
-    if (existingModel) throw new BadRequestException('Model already exists');
-
-    return this.modelRepository.create({ model, brandId });
+  async create({ name, brandName }: CreateModelDto) {
+    return this.modelRepository.create({ name, brandName });
   }
 
   findAll() {
     return this.modelRepository.findAll();
   }
 
-  async update(id: number, updateModelDto: UpdateModelDto) {
-    const model = await this.modelRepository.findById(id);
-
-    if (!model) throw new NotFoundException('Model not found');
-
-    return this.modelRepository.update(id, updateModelDto);
+  async update(paramsModelDto: ParamsModelDto, updateModelDto: UpdateModelDto) {
+    return this.modelRepository.updateByBrandAndModel(
+      paramsModelDto,
+      updateModelDto,
+    );
   }
 
-  async remove(id: number) {
-    const modelDeleted = await this.modelRepository.findById(id);
-
-    if (!modelDeleted) throw new NotFoundException('Model not found');
-    return this.modelRepository.deleteById(id);
+  async remove(paramsModelDto: ParamsModelDto) {
+    return this.modelRepository.deleteByBrandAndModel(paramsModelDto);
   }
 }

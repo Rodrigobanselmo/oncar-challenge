@@ -5,6 +5,7 @@ import { CreateModelDto } from '../dto/create-Model.dto';
 import { UpdateModelDto } from '../dto/update-Model.dto';
 import { IModelRepository } from './IModelRepository';
 import { Model, Prisma } from '.prisma/client';
+import { ParamsModelDto } from '../dto/params-model.dto';
 
 @Injectable()
 export class ModelRepository implements IModelRepository {
@@ -12,13 +13,21 @@ export class ModelRepository implements IModelRepository {
 
   create(createModelDto: CreateModelDto) {
     return this.prisma.model.create({
-      data: { num_requests: 0, ...createModelDto },
+      data: createModelDto,
     });
   }
 
-  update(id: number, updateModelDto: UpdateModelDto): Promise<Model> {
+  updateByBrandAndModel(
+    { brandName, modelName }: ParamsModelDto,
+    updateModelDto: UpdateModelDto,
+  ): Promise<Model> {
     return this.prisma.model.update({
-      where: { id: id },
+      where: {
+        Model_model_brand_key: {
+          name: modelName,
+          brandName,
+        },
+      },
       data: updateModelDto,
     });
   }
@@ -27,26 +36,32 @@ export class ModelRepository implements IModelRepository {
     return this.prisma.model.findMany();
   }
 
-  findById(id: number): Promise<Model> {
-    return this.prisma.model.findUnique({
-      where: { id },
-    });
-  }
-
-  findByBrandIdAndModel(brandId: number, model: string): Promise<Model> {
+  findByBrandAndModel({
+    brandName,
+    modelName,
+  }: ParamsModelDto): Promise<Model> {
     return this.prisma.model.findUnique({
       where: {
-        Model_model_brandId_key: {
-          model,
-          brandId,
+        Model_model_brand_key: {
+          name: modelName,
+          brandName,
         },
       },
     });
   }
 
-  async deleteById(id: number): Promise<Prisma.Prisma__ModelClient<Model>> {
-    console.log(`id,2`, id, 2);
-    return this.prisma.model.delete({ where: { id } });
+  async deleteByBrandAndModel({
+    brandName,
+    modelName,
+  }: ParamsModelDto): Promise<Prisma.Prisma__ModelClient<Model>> {
+    return this.prisma.model.delete({
+      where: {
+        Model_model_brand_key: {
+          name: modelName,
+          brandName,
+        },
+      },
+    });
   }
 }
 

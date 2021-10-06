@@ -34,10 +34,10 @@ export class CarEntity implements Car {
   created_at: Date;
 
   @ApiProperty()
-  modelId: number;
+  modelName: string;
 
   @ApiProperty()
-  brandId: number;
+  brandName: string;
 
   constructor(partial: Partial<CarEntity>) {
     Object.assign(this, partial);

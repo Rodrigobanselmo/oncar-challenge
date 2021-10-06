@@ -1,3 +1,4 @@
+import { ParamsModelDto } from './../dto/params-model.dto';
 import { ValidatePayloadExistsPipe } from './../../../shared/pipes/validates-payload-exists.pipe';
 import { ModelsService } from '../services/models.service';
 import {
@@ -8,7 +9,6 @@ import {
   Patch,
   Param,
   Delete,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateModelDto } from '../dto/create-model.dto';
 import { UpdateModelDto } from '../dto/update-model.dto';
@@ -29,18 +29,18 @@ export class ModelsController {
     return allModels.map((model) => new ModelEntity(model));
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id', ParseIntPipe) id: string,
+  @Patch('/:modelName/:brandName')
+  async updateNewRequest(
+    @Param() paramsModelDto: ParamsModelDto,
     @Body(ValidatePayloadExistsPipe) updateModelDto: UpdateModelDto,
   ) {
     return new ModelEntity(
-      await this.modelsService.update(+id, updateModelDto),
+      await this.modelsService.update(paramsModelDto, updateModelDto),
     );
   }
 
-  @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: string) {
-    return new ModelEntity(await this.modelsService.remove(+id));
+  @Delete('/:modelName/:brandName')
+  async remove(@Param() paramsModelDto: ParamsModelDto) {
+    return new ModelEntity(await this.modelsService.remove(paramsModelDto));
   }
 }
