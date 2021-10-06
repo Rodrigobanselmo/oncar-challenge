@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsIn,
   IsNumber,
   IsOptional,
   IsString,
@@ -7,6 +8,8 @@ import {
   Matches,
   MaxLength,
 } from 'class-validator';
+
+import { FuelOptions } from '../constants/fuel.constants';
 
 export class CreateCarDto {
   @ApiProperty({ description: 'car plate.' })
@@ -26,9 +29,11 @@ export class CreateCarDto {
     example: ['2020/2021', '20/21'],
     description: 'manufacture year of the car',
   })
-  @Matches(/\d*\/\d*/g)
   @MaxLength(9)
   @IsString()
+  @Matches(/^\d{4}\/\d{4}/, {
+    message: 'wrong format for year field. Expected: 2020/2021',
+  })
   readonly year: string;
 
   @ApiProperty({ description: 'car mileage in kilometers.' })
@@ -36,7 +41,7 @@ export class CreateCarDto {
   readonly kilometers: number;
 
   @ApiProperty({ description: 'car fuel type.' })
-  // @IsIn(FuelOptions[])
+  @IsIn(Object.keys(FuelOptions))
   @IsString()
   readonly fuel: string;
 

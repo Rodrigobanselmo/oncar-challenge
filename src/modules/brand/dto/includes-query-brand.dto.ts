@@ -1,18 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class IncludesQueryBrandDto {
   @ApiProperty({
-    description: 'if true should bring all cars related to the brand.',
+    description: 'if equals "get" should bring the cars related to the brand.',
   })
-  @IsBoolean()
+  @IsString()
   @IsOptional()
-  readonly cars?: boolean;
+  readonly cars?: string;
 
   @ApiProperty({
-    description: 'if true should bring all models related to the brand.',
+    description: 'if equals "get" should bring the model related to the brand.',
   })
-  @IsBoolean()
+  @IsString()
   @IsOptional()
-  readonly models?: boolean;
+  readonly models?: string;
 }
