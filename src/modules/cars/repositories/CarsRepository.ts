@@ -1,3 +1,4 @@
+import { IncludesQueryDto } from './../dto/includes-query.dto';
 import { CreateCarDto } from './../dto/create-car.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 
@@ -6,6 +7,7 @@ import { Car, Prisma } from '.prisma/client';
 import { ICarsRepository } from './ICarsRepository';
 import { UpdateCarDto } from '../dto/update-car.dto';
 import { PaginationQueryDto } from 'src/modules/cars/dto/pagination-query.dto';
+import { FilterQueryDto } from '../dto/filter-query.dto';
 
 @Injectable()
 export class CarsRepository implements ICarsRepository {
@@ -39,14 +41,30 @@ export class CarsRepository implements ICarsRepository {
     }
   }
 
-  findAll(paginationQuery: PaginationQueryDto): Promise<Car[]> {
+  findAll(
+    paginationQuery: PaginationQueryDto,
+    filterQueryDto: FilterQueryDto,
+    includesQueryDto: IncludesQueryDto,
+  ): Promise<Car[]> {
     const { limit = 10, offset = 0 } = paginationQuery;
+    const { brandId, modelId } = filterQueryDto;
+    const { brand, model } = includesQueryDto;
+
     return this.prisma.car.findMany({
       skip: offset,
       take: limit,
-      // where: {
-      //   brand: { id: {equals: }},
-      // },
+      where: {
+        brandId: {
+          equals: brandId,
+        },
+        modelId: {
+          equals: modelId,
+        },
+      },
+      include: {
+        brand: brand === 'get' ? true : false,
+        model: model === 'get' ? true : false,
+      },
     });
   }
 

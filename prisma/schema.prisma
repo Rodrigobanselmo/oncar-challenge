@@ -39,7 +39,7 @@ model Model {
   num_requests Int
   created_at DateTime @default(now())
   brandId Int
-  brand Brand @relation(fields: [brandId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  brand Brand @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   cars Car[]
   
   @@unique([model, brandId], name: "Model_model_brandId_key")
