@@ -9,6 +9,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { BrandService } from '../services/brand.service';
 import { CreateBrandDto } from '../dto/create-brand.dto';
@@ -33,7 +34,7 @@ export class BrandController {
   @Get(':id')
   async findOne(
     @Param('id', ParseIntPipe) id: string,
-    @Body() findOptionsBrandDto: FindOptionsBrandDto,
+    @Query() findOptionsBrandDto: FindOptionsBrandDto,
   ) {
     return new BrandEntity(
       await this.brandService.findOne(+id, findOptionsBrandDto),
