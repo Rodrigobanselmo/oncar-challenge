@@ -13,7 +13,7 @@ export class CarEntity implements Car {
   color: string;
 
   @ApiProperty()
-  price: string;
+  price: number;
 
   @ApiProperty()
   year: string;

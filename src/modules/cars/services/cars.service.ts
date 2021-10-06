@@ -1,27 +1,56 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { CreateCarDto } from '../dto/create-car.dto';
+import { PaginationQueryDto } from '../dto/pagination-query.dto';
 import { UpdateCarDto } from '../dto/update-car.dto';
+import { CarsRepository } from '../repositories/CarsRepository';
 
 @Injectable()
 export class CarsService {
-  create(createCarDto: CreateCarDto) {
-    return 'This action adds a new car';
+  constructor(private readonly carsRepository: CarsRepository) {}
+
+  async create(createCarDto: CreateCarDto) {
+    const existingCar = await this.carsRepository.findByPlate(
+      createCarDto.plate,
+    );
+
+    if (existingCar)
+      throw new BadRequestException(
+        `Car with plate "${createCarDto.plate}" already exists`,
+      );
+
+    return this.carsRepository.create(createCarDto);
   }
 
-  findAll() {
-    return `This action returns all cars`;
+  findAll(paginationQueryDto: PaginationQueryDto) {
+    return this.carsRepository.findAll(paginationQueryDto);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} car`;
+  async findOne(id: number) {
+    const car = await this.carsRepository.findById(id);
+
+    if (!car) throw new NotFoundException('Car not found');
+
+    return car;
   }
 
-  update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
+  async update(id: number, updateCarDto: UpdateCarDto) {
+    const car = await this.carsRepository.findById(id);
+
+    if (!car) throw new NotFoundException('Car not found');
+
+    return this.carsRepository.update(id, updateCarDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} car`;
+  async remove(id: number) {
+    const car = await this.carsRepository.findById(id);
+
+    if (!car) throw new NotFoundException('Car not found');
+
+    return this.carsRepository.deleteById(id);
   }
 }
