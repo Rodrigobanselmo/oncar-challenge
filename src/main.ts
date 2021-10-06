@@ -1,8 +1,9 @@
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
+import { PrismaDbExceptionFilter } from './shared/filters/prisma-db-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +25,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
+  const { httpAdapter } = app.get(HttpAdapterHost);
+
+  app.useGlobalFilters(new PrismaDbExceptionFilter(httpAdapter));
   app.enableCors();
   await app.listen(process.env.PORT || 3333);
 }

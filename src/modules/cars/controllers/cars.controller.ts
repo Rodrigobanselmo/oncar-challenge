@@ -16,6 +16,7 @@ import { CarsService } from '../services/cars.service';
 import { CreateCarDto } from '../dto/create-car.dto';
 import { UpdateCarDto } from '../dto/update-car.dto';
 import { CarEntity } from '../entities/car.entity';
+import { ValidatePayloadExistsPipe } from 'src/shared/pipes/validates-payload-exists.pipe';
 
 @Controller('cars')
 export class CarsController {
@@ -45,7 +46,10 @@ export class CarsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
+  async update(
+    @Param('id') id: string,
+    @Body(ValidatePayloadExistsPipe) updateCarDto: UpdateCarDto,
+  ) {
     return this.carsService.update(+id, updateCarDto);
   }
 
