@@ -1,3 +1,4 @@
+import { ModelRepository } from './../modelsCar/repositories/ModelRepository';
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -7,6 +8,6 @@ import { CarsService } from './services/cars.service';
 
 @Module({
   controllers: [CarsController],
-  providers: [CarsService, PrismaService, CarsRepository],
+  providers: [CarsService, PrismaService, ModelRepository, CarsRepository],
 })
 export class CarsModule {}

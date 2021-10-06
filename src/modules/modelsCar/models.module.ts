@@ -7,5 +7,6 @@ import { BrandRepository } from '../brand/repositories/BrandRepository';
 @Module({
   controllers: [ModelsController],
   providers: [ModelsService, ModelRepository, BrandRepository],
+  exports: [ModelRepository],
 })
 export class ModelsModule {}
