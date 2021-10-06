@@ -1,5 +1,5 @@
 import { CreateCarDto } from './../dto/create-car.dto';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { PrismaService } from './../../../prisma/prisma.service';
 import { Car, Prisma } from '.prisma/client';
@@ -11,17 +11,32 @@ import { PaginationQueryDto } from 'src/modules/cars/dto/pagination-query.dto';
 export class CarsRepository implements ICarsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createCarDto: CreateCarDto) {
-    return this.prisma.car.create({
-      data: createCarDto,
-    });
+  async create(createCarDto: CreateCarDto) {
+    try {
+      return await this.prisma.car.create({
+        data: createCarDto,
+      });
+    } catch (e) {
+      if (e.code === 'P2003')
+        throw new BadRequestException(`Model or brand does not exists`);
+      if (e.code === 'P2002')
+        throw new BadRequestException(
+          `Car with plate ${createCarDto.plate} already exists`,
+        );
+      throw new Error(e);
+    }
   }
 
-  update(id: number, updateCarDto: UpdateCarDto): Promise<Car> {
-    return this.prisma.car.update({
-      where: { id: id },
-      data: updateCarDto,
-    });
+  async update(id: number, updateCarDto: UpdateCarDto): Promise<Car> {
+    try {
+      return await this.prisma.car.update({
+        where: { id: id },
+        data: updateCarDto,
+      });
+    } catch (e) {
+      if (e.code === 'P2025') throw new BadRequestException(`Car not found`);
+      throw new Error(e);
+    }
   }
 
   findAll(paginationQuery: PaginationQueryDto): Promise<Car[]> {
@@ -50,6 +65,11 @@ export class CarsRepository implements ICarsRepository {
   }
 
   async deleteById(id: number): Promise<Prisma.Prisma__CarClient<Car>> {
-    return this.prisma.car.delete({ where: { id } });
+    try {
+      return await this.prisma.car.delete({ where: { id } });
+    } catch (e) {
+      if (e.code === 'P2025') throw new BadRequestException(`Car not found`);
+      throw new Error(e);
+    }
   }
 }

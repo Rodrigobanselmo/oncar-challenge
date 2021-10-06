@@ -13,16 +13,7 @@ import { CarsRepository } from '../repositories/CarsRepository';
 export class CarsService {
   constructor(private readonly carsRepository: CarsRepository) {}
 
-  async create(createCarDto: CreateCarDto) {
-    const existingCar = await this.carsRepository.findByPlate(
-      createCarDto.plate,
-    );
-
-    if (existingCar)
-      throw new BadRequestException(
-        `Car with plate "${createCarDto.plate}" already exists`,
-      );
-
+  create(createCarDto: CreateCarDto) {
     return this.carsRepository.create(createCarDto);
   }
 
@@ -38,19 +29,23 @@ export class CarsService {
     return car;
   }
 
-  async update(id: number, updateCarDto: UpdateCarDto) {
-    const car = await this.carsRepository.findById(id);
-
-    if (!car) throw new NotFoundException('Car not found');
-
+  update(id: number, updateCarDto: UpdateCarDto) {
     return this.carsRepository.update(id, updateCarDto);
+
+    // const car = await this.carsRepository.findById(id);
+
+    // if (!car) throw new NotFoundException('Car not found');
+
+    // return this.carsRepository.update(id, updateCarDto);
   }
 
-  async remove(id: number) {
-    const car = await this.carsRepository.findById(id);
-
-    if (!car) throw new NotFoundException('Car not found');
-
+  remove(id: number) {
     return this.carsRepository.deleteById(id);
+
+    // const car = await this.carsRepository.findById(id);
+
+    // if (!car) throw new NotFoundException('Car not found');
+
+    // return this.carsRepository.deleteById(id);
   }
 }

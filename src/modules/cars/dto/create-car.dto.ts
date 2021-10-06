@@ -17,7 +17,7 @@ export class CreateCarDto {
   @IsString()
   readonly color: string;
 
-  @ApiProperty({ description: 'car price.' })
+  @ApiProperty({ description: 'car price in cents.' })
   @IsNumber()
   readonly price: number;
 
@@ -30,7 +30,7 @@ export class CreateCarDto {
   readonly year: string;
 
   @ApiProperty({ description: 'car mileage in kilometers.' })
-  @IsString()
+  @IsNumber()
   readonly kilometers: number;
 
   @ApiProperty({ description: 'car fuel type.' })
@@ -44,10 +44,10 @@ export class CreateCarDto {
   readonly desc?: string;
 
   @ApiProperty({ description: 'car model id.' })
-  @IsString()
+  @IsNumber()
   readonly modelId: number;
 
   @ApiProperty({ description: 'car brand id.' })
-  @IsString()
+  @IsNumber()
   readonly brandId: number;
 }
