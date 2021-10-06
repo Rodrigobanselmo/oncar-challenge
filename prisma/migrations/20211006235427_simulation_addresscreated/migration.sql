@@ -9,7 +9,6 @@ CREATE TABLE "Simulations" (
     "income" INTEGER NOT NULL,
     "haveHelp" BOOLEAN NOT NULL,
     "dirtyName" BOOLEAN NOT NULL,
-    "updated_at" TIMESTAMP(3) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Simulations_pkey" PRIMARY KEY ("id")

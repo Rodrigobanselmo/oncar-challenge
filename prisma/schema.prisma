@@ -53,7 +53,6 @@ model Simulations {
   income Int
   haveHelp Boolean
   dirtyName Boolean
-  updated_at  DateTime   @updatedAt
   created_at DateTime @default(now())
   address Address?
 }
