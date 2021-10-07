@@ -6,9 +6,9 @@ export class FakerModel implements CreateModelDto {
     this.initialBrand
       ? (this.brandName = this.initialBrand)
       : (this.brandName =
-          faker.vehicle.manufacturer() + ' ' + faker.random.word());
+          faker.vehicle.manufacturer() + ' ' + faker.datatype.uuid());
   }
 
   readonly brandName: string;
-  readonly name = faker.vehicle.model() + ' ' + faker.random.word();
+  readonly name = faker.vehicle.model() + ' ' + faker.datatype.uuid();
 }

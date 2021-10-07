@@ -1,6 +1,6 @@
 import * as faker from 'faker/locale/pt_BR';
-import { FuelOptions } from 'src/modules/cars/constants/fuel.constants';
-import { CreateCarDto } from 'src/modules/cars/dto/create-car.dto';
+import { FuelOptions } from '../../src/modules/cars/constants/fuel.constants';
+import { CreateCarDto } from '../../src/modules/cars/dto/create-car.dto';
 
 export class FakerCar implements CreateCarDto {
   constructor(
@@ -11,17 +11,16 @@ export class FakerCar implements CreateCarDto {
     this.connectBrand
       ? (this.brandName = this.connectBrand)
       : (this.brandName =
-          faker.vehicle.manufacturer() + ' ' + faker.datatype.number(1000));
+          faker.vehicle.manufacturer() + ' ' + faker.datatype.uuid());
 
     this.connectModel
-      ? (this.brandName = this.connectModel)
-      : (this.brandName =
-          faker.vehicle.model() + ' ' + faker.datatype.number(1000));
+      ? (this.modelName = this.connectModel)
+      : (this.modelName = faker.vehicle.model() + ' ' + faker.datatype.uuid());
 
     this.description && (this.desc = this.description);
   }
 
-  plate = faker.datatype.string(8);
+  plate = faker.datatype.string();
   color = faker.commerce.color();
   price = faker.datatype.number(5000000);
   year = '2002/2003';
