@@ -11,7 +11,8 @@ import {
   MinDate,
 } from 'class-validator';
 
-import { Address, Simulations } from '.prisma/client';
+import { CreateSimulationAddressDto } from './create-simulation-address.dto';
+import { Simulations } from '.prisma/client';
 
 export class CreateSimulationDto
   implements Omit<Simulations, 'id' | 'created_at'>
@@ -61,5 +62,5 @@ export class CreateSimulationDto
   score: number;
 
   @ApiProperty()
-  address?: Address;
+  address: CreateSimulationAddressDto;
 }

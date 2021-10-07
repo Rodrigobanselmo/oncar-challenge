@@ -1,6 +1,18 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
-import { SimulationsService } from '../services/simulations.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
+import { FilterQuerySimulationDto } from '../dto/filter-query-simulation.dto';
+import { SimulationsService } from '../services/simulations.service';
 
 @Controller('simulations')
 export class SimulationsController {
@@ -12,17 +24,23 @@ export class SimulationsController {
   }
 
   @Get()
-  findAll() {
-    return this.simulationsService.findAll();
+  findAll(
+    @Query() paginationQuery: PaginationQueryDto,
+    @Query() filterQuerySimulationDto: FilterQuerySimulationDto,
+  ) {
+    return this.simulationsService.findAll(
+      paginationQuery,
+      filterQuerySimulationDto,
+    );
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.simulationsService.findOne(+id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.simulationsService.remove(+id);
   }
 }

@@ -7,6 +7,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -41,20 +42,20 @@ export class CarsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.carsService.findOne(+id);
   }
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body(ValidatePayloadExistsPipe) updateCarDto: UpdateCarDto,
   ) {
     return this.carsService.update(+id, updateCarDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return this.carsService.remove(+id);
   }
 }

@@ -9,7 +9,7 @@ import {
 
 import { Address } from '.prisma/client';
 
-export class CreateSimulationDto
+export class CreateSimulationAddressDto
   implements Omit<Address, 'id' | 'simulationId'>
 {
   @ApiProperty({ description: 'address number.' })

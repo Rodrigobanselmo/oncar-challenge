@@ -1,21 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
+import { SimulationsRepository } from '../repositories/SimulationsRepository';
+import { FilterQuerySimulationDto } from './../dto/filter-query-simulation.dto';
 
 @Injectable()
 export class SimulationsService {
+  constructor(private readonly simulationsRepository: SimulationsRepository) {}
+
   create(createSimulationDto: CreateSimulationDto) {
-    return 'This action adds a new simulation';
+    return this.simulationsRepository.create(createSimulationDto);
   }
 
-  findAll() {
-    return `This action returns all simulations`;
+  findAll(
+    paginationQueryDto: PaginationQueryDto,
+    filterQuerySimulationDto: FilterQuerySimulationDto,
+  ) {
+    return this.simulationsRepository.findAll(
+      paginationQueryDto,
+      filterQuerySimulationDto,
+    );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} simulation`;
+  async findOne(id: number) {
+    const simulation = await this.simulationsRepository.findById(id);
+
+    if (!simulation) throw new NotFoundException('Simulation not found');
+
+    return simulation;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} simulation`;
+    return this.simulationsRepository.deleteById(id);
   }
 }
