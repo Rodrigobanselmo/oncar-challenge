@@ -39,7 +39,6 @@ describe('BrandService', () => {
         await service.create(creationData);
         throw new Error();
       } catch (err) {
-        console.log(`err`, err);
         expect(err).toBeInstanceOf(PrismaClientKnownRequestError);
       }
     });

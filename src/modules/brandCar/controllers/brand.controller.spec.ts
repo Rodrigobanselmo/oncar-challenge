@@ -69,7 +69,6 @@ describe('BrandController', () => {
         models: 'get',
         cars: 'get',
       });
-      console.log(`brand`, brand);
       expect(brand).toBeInstanceOf(BrandEntity);
       expect(brand).toHaveProperty('name', name);
       expect(brand).toHaveProperty('cars', []);
