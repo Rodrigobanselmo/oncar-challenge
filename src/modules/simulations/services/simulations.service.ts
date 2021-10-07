@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
 import { SimulationsRepository } from '../repositories/SimulationsRepository';
