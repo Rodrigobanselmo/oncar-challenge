@@ -76,4 +76,13 @@ describe('BrandController', () => {
       expect(brand).toHaveProperty('models', []);
     });
   });
+
+  describe('Delete one brand', () => {
+    it('should remove by name and return the deleted EntityBrand ', async () => {
+      const { name } = await controller.create(new FakerBrand());
+      const brand = await controller.remove(name);
+      expect(brand).toBeInstanceOf(BrandEntity);
+      expect(brand).toHaveProperty('name', name);
+    });
+  });
 });
