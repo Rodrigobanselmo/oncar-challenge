@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { FakerBrand } from 'test/fake/brand.fake';
 import { FakerModel } from '../../../../test/fake/model.fake';
 import { PrismaService } from '../../../prisma/prisma.service';
@@ -32,14 +33,14 @@ describe('ModelsService', () => {
     });
 
     it('should not create if model name already exists', async () => {
-      const creationModel1 = new FakerModel();
-      const creationModel2 = new FakerModel();
+      const creationModel = new FakerModel();
 
-      await service.create(creationModel1);
+      await service.create(creationModel);
       try {
-        await service.create(creationModel2);
+        await service.create(creationModel);
+        throw new Error();
       } catch (err) {
-        expect(err).toBeInstanceOf(BadRequestException);
+        expect(err).toBeInstanceOf(PrismaClientKnownRequestError);
       }
     });
   });
@@ -88,18 +89,6 @@ describe('ModelsService', () => {
       );
 
       expect(updatedModel2).toHaveProperty('num_requests', 2);
-    });
-
-    it('should not create if model name already exists', async () => {
-      const creationModel1 = new FakerModel();
-      const creationModel2 = new FakerModel();
-
-      await service.create(creationModel1);
-      try {
-        await service.create(creationModel2);
-      } catch (err) {
-        expect(err).toBeInstanceOf(BadRequestException);
-      }
     });
   });
 
