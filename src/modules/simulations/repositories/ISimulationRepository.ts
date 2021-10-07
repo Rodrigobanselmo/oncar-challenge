@@ -5,7 +5,10 @@ import { FilterQuerySimulationDto } from '../dto/filter-query-simulation.dto';
 import { Prisma, Simulations } from '.prisma/client';
 
 interface ISimulationsRepository {
-  create(createCarDto: CreateSimulationDto): Promise<Simulations>;
+  create(
+    createCarDto: CreateSimulationDto,
+    score: number,
+  ): Promise<Simulations>;
   findAll(
     paginationQuery: PaginationQueryDto,
     filterQueryDto: FilterQuerySimulationDto,

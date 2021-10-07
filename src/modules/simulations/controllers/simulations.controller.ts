@@ -12,6 +12,7 @@ import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
 import { FilterQuerySimulationDto } from '../dto/filter-query-simulation.dto';
+import { SimulationEntity } from '../entities/simulation.entity';
 import { SimulationsService } from '../services/simulations.service';
 
 @Controller('simulations')
@@ -19,28 +20,32 @@ export class SimulationsController {
   constructor(private readonly simulationsService: SimulationsService) {}
 
   @Post()
-  create(@Body() createSimulationDto: CreateSimulationDto) {
-    return this.simulationsService.create(createSimulationDto);
-  }
-
-  @Get()
-  findAll(
-    @Query() paginationQuery: PaginationQueryDto,
-    @Query() filterQuerySimulationDto: FilterQuerySimulationDto,
-  ) {
-    return this.simulationsService.findAll(
-      paginationQuery,
-      filterQuerySimulationDto,
+  async create(@Body() createSimulationDto: CreateSimulationDto) {
+    return new SimulationEntity(
+      await this.simulationsService.create(createSimulationDto),
     );
   }
 
+  @Get()
+  async findAll(
+    @Query() paginationQuery: PaginationQueryDto,
+    @Query() filterQuerySimulationDto: FilterQuerySimulationDto,
+  ) {
+    const allSimulations = await this.simulationsService.findAll(
+      paginationQuery,
+      filterQuerySimulationDto,
+    );
+
+    return allSimulations.map((simulation) => new SimulationEntity(simulation));
+  }
+
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.simulationsService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return new SimulationEntity(await this.simulationsService.findOne(+id));
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.simulationsService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return new SimulationEntity(await this.simulationsService.remove(+id));
   }
 }

@@ -11,13 +11,15 @@ import { Prisma, Simulations } from '.prisma/client';
 export class SimulationsRepository implements ISimulationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create({
-    address,
-    ...createCarDto
-  }: CreateSimulationDto): Promise<Simulations> {
+  async create(
+    { address, ...createSimulationDto }: CreateSimulationDto,
+    score: number,
+  ): Promise<Simulations> {
+    console.log(`createSimulationDto`, createSimulationDto);
     return await this.prisma.simulations.create({
       data: {
-        ...createCarDto,
+        ...createSimulationDto,
+        score,
         address: {
           create: address,
         },
