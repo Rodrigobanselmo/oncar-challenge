@@ -48,7 +48,7 @@ model Simulations {
   name String 
   cpf Int
   phone Int
-  birthDate String
+  birthDate DateTime
   email String 
   income Int
   haveHelp Boolean
