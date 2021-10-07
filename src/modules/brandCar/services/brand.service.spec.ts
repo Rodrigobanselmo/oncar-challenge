@@ -42,4 +42,23 @@ describe('BrandService', () => {
       }
     });
   });
+
+  describe('Find all brands', () => {
+    it('should find and return all brands', async () => {
+      await service.create(new FakerBrand());
+      await service.create(new FakerBrand());
+      await service.create(new FakerBrand());
+
+      const allBrands = await service.findAll();
+      console.log(`allBrands`, allBrands);
+      expect(allBrands).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            name: expect.any(String),
+            created_at: expect.any(Date),
+          }),
+        ]),
+      );
+    });
+  });
 });
