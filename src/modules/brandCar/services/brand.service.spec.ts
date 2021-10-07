@@ -1,5 +1,6 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { FakerBrand } from '../../../../test/fake/brand.fake';
 
 import { PrismaService } from '../../../prisma/prisma.service';
@@ -31,14 +32,15 @@ describe('BrandService', () => {
     });
 
     it('should not create if brand name already exists', async () => {
-      const creationData1 = new FakerBrand();
-      const creationData2 = new FakerBrand();
+      const creationData = new FakerBrand();
 
-      await service.create(creationData1);
+      await service.create(creationData);
       try {
-        await service.create(creationData2);
+        await service.create(creationData);
+        throw new Error();
       } catch (err) {
-        expect(err).toBeInstanceOf(BadRequestException);
+        console.log(`err`, err);
+        expect(err).toBeInstanceOf(PrismaClientKnownRequestError);
       }
     });
   });
@@ -82,8 +84,9 @@ describe('BrandService', () => {
     it('should not find by name if name does not exists', async () => {
       try {
         await service.findOne('fake-name', {});
+        throw new Error();
       } catch (err) {
-        expect(err).toBeInstanceOf(BadRequestException);
+        expect(err).toBeInstanceOf(NotFoundException);
       }
     });
   });
