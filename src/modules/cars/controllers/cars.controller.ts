@@ -1,6 +1,3 @@
-import { IncludesQueryDto } from '../dto/includes-query-car.dto';
-import { FilterQueryDto } from '../dto/filter-query.dto-car';
-import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import {
   Body,
   Controller,
@@ -12,11 +9,12 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { CarsService } from '../services/cars.service';
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { CreateCarDto } from '../dto/create-car.dto';
-import { UpdateCarDto } from '../dto/update-car.dto';
+import { FilterQueryDto } from '../dto/filter-query.dto-car';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
 import { CarEntity } from '../entities/car.entity';
-import { ValidatePayloadExistsPipe } from 'src/shared/pipes/validates-payload-exists.pipe';
+import { CarsService } from '../services/cars.service';
 
 @Controller('cars')
 export class CarsController {
@@ -38,7 +36,7 @@ export class CarsController {
       filterQueryDto,
       includesQueryDto,
     );
-    allCars.map((car) => new CarEntity(car));
+    return allCars.map((car) => new CarEntity(car));
   }
 
   @Get(':id')

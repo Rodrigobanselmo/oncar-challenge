@@ -6,7 +6,7 @@ import { PrismaService } from './../../../prisma/prisma.service';
 import { Car, Prisma } from '.prisma/client';
 import { ICarsRepository } from './ICarsRepository';
 import { UpdateCarDto } from '../dto/update-car.dto';
-import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { FilterQueryDto } from '../dto/filter-query.dto-car';
 
 @Injectable()

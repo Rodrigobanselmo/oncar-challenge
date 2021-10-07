@@ -81,7 +81,7 @@ describe('CarsService', () => {
   });
 
   describe('findOne Car', () => {
-    it('should find by name and return one brand', async () => {
+    it('should find by id and return one car', async () => {
       const { id } = await service.create(new FakerCar());
 
       const car = await service.findOne(id);
