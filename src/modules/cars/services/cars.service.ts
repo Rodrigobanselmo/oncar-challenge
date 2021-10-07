@@ -14,10 +14,7 @@ import { CarsRepository } from '../repositories/CarsRepository';
 
 @Injectable()
 export class CarsService {
-  constructor(
-    private readonly carsRepository: CarsRepository,
-    private readonly modelRepository: ModelRepository,
-  ) {}
+  constructor(private readonly carsRepository: CarsRepository) {}
 
   async create(createCarDto: CreateCarDto) {
     return this.carsRepository.create(createCarDto);
@@ -45,21 +42,9 @@ export class CarsService {
 
   update(id: number, updateCarDto: UpdateCarDto) {
     return this.carsRepository.update(id, updateCarDto);
-
-    // const car = await this.carsRepository.findById(id);
-
-    // if (!car) throw new NotFoundException('Car not found');
-
-    // return this.carsRepository.update(id, updateCarDto);
   }
 
   remove(id: number) {
     return this.carsRepository.deleteById(id);
-
-    // const car = await this.carsRepository.findById(id);
-
-    // if (!car) throw new NotFoundException('Car not found');
-
-    // return this.carsRepository.deleteById(id);
   }
 }

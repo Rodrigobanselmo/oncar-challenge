@@ -18,6 +18,11 @@ export class FakerCar implements CreateCarDto {
       : (this.modelName = faker.vehicle.model() + ' ' + faker.datatype.uuid());
 
     this.description && (this.desc = this.description);
+
+    {
+      const { connectBrand, connectModel, description, ...car } = this;
+      return car;
+    }
   }
 
   plate = faker.datatype.string();
@@ -28,6 +33,6 @@ export class FakerCar implements CreateCarDto {
   fuel = Object.keys(FuelOptions)[faker.datatype.number(4)];
   desc: string | undefined;
 
-  readonly brandName: string;
-  readonly modelName: string;
+  brandName: string;
+  modelName: string;
 }

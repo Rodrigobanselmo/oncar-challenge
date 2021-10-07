@@ -1,11 +1,13 @@
-import { IsOptional, IsPositive } from 'class-validator';
+import { IsOptional, IsPositive, Max } from 'class-validator';
 
 export class PaginationQueryDto {
   @IsOptional()
   @IsPositive()
-  limit: number;
+  @Max(100)
+  limit?: number = 10;
 
   @IsOptional()
   @IsPositive()
-  offset: number;
+  @Max(100000000)
+  offset?: number = 0;
 }

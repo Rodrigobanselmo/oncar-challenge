@@ -7,12 +7,12 @@ export class IncludesQueryDto {
   })
   @IsString()
   @IsOptional()
-  readonly model: string;
+  readonly model?: string;
 
   @ApiProperty({
     description: 'if equals "get" should bring the brand related to the car.',
   })
   @IsString()
   @IsOptional()
-  readonly brand: string;
+  readonly brand?: string;
 }

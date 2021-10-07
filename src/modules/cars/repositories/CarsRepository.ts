@@ -117,6 +117,9 @@ export class CarsRepository implements ICarsRepository {
     return this.prisma.car.findMany({
       skip: offset,
       take: limit,
+      orderBy: {
+        created_at: 'desc',
+      },
       where: {
         brandName: {
           equals: brandName,

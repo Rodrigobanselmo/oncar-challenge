@@ -8,7 +8,6 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -47,16 +46,16 @@ export class CarsController {
     return new CarEntity(await this.carsService.findOne(+id));
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body(ValidatePayloadExistsPipe) updateCarDto: UpdateCarDto,
-  ) {
-    return new CarEntity(await this.carsService.update(+id, updateCarDto));
-  }
-
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
     return new CarEntity(await this.carsService.remove(+id));
   }
+
+  // @Patch(':id')
+  // async update(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @Body(ValidatePayloadExistsPipe) updateCarDto: UpdateCarDto,
+  // ) {
+  //   return new CarEntity(await this.carsService.update(+id, updateCarDto));
+  // }
 }
