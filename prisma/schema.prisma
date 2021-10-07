@@ -46,8 +46,8 @@ model Model {
 model Simulations {
   id    Int     @default(autoincrement()) @id
   name String 
-  cpf Int
-  phone Int
+  cpf String
+  phone String
   birthDate DateTime
   email String 
   income Int
