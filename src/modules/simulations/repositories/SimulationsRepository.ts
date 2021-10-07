@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
 import { FilterQuerySimulationDto } from '../dto/filter-query-simulation.dto';

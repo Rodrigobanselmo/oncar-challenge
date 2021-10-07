@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CarEntity } from 'src/modules/cars/entities/car.entity';
-import { ModelEntity } from 'src/modules/modelCar/entities/model.entity';
+import { CarEntity } from '../../../modules/cars/entities/car.entity';
+import { ModelEntity } from '../../../modules/modelCar/entities/model.entity';
 
 import { Brand } from '.prisma/client';
 
