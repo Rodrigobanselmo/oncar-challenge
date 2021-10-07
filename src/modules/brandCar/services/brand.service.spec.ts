@@ -80,7 +80,7 @@ describe('BrandService', () => {
       expect(brand).toHaveProperty('models', []);
     });
   });
-  describe('Find one brand', () => {
+  describe('Delete one brand', () => {
     it('should remove by name and return the deleted brand ', async () => {
       const { name } = await service.create(new FakerBrand());
       const brand = await service.remove(name);
