@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { CreateCarDto } from '../dto/create-car.dto';
@@ -16,6 +17,7 @@ import { IncludesQueryDto } from '../dto/includes-query-car.dto';
 import { CarEntity } from '../entities/car.entity';
 import { CarsService } from '../services/cars.service';
 
+@ApiTags('Cars')
 @Controller('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}

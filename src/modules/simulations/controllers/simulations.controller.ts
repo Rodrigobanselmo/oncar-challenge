@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
@@ -15,6 +16,7 @@ import { FilterQuerySimulationDto } from '../dto/filter-query-simulation.dto';
 import { SimulationEntity } from '../entities/simulation.entity';
 import { SimulationsService } from '../services/simulations.service';
 
+@ApiTags('Simulations')
 @Controller('simulations')
 export class SimulationsController {
   constructor(private readonly simulationsService: SimulationsService) {}

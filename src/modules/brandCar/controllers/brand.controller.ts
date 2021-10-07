@@ -7,12 +7,14 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateBrandDto } from '../dto/create-brand.dto';
 import { IncludesQueryBrandDto } from '../dto/includes-query-brand.dto';
 import { BrandEntity } from '../entities/brand.entity';
 import { BrandService } from '../services/brand.service';
 
+@ApiTags('Brand')
 @Controller('brand')
 export class BrandController {
   constructor(private readonly brandService: BrandService) {}

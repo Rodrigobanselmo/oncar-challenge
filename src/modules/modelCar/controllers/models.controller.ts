@@ -13,7 +13,9 @@ import {
 import { CreateModelDto } from '../dto/create-model.dto';
 import { UpdateModelDto } from '../dto/update-model.dto';
 import { ModelEntity } from '../entities/model.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Models')
 @Controller('models')
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
