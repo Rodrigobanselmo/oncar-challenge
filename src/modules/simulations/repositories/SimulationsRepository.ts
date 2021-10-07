@@ -15,7 +15,6 @@ export class SimulationsRepository implements ISimulationsRepository {
     { address, ...createSimulationDto }: CreateSimulationDto,
     score: number,
   ): Promise<Simulations> {
-    console.log(`createSimulationDto`, createSimulationDto);
     return await this.prisma.simulations.create({
       data: {
         ...createSimulationDto,

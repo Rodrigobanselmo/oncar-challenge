@@ -19,8 +19,6 @@ export class PrismaDbExceptionFilter extends BaseExceptionFilter {
         target = ['database error'],
         field_name = '',
       } = meta;
-      console.log(`meta`, meta);
-      console.log(`code`, code);
       switch (code) {
         case 'P2002':
           exception = new BadRequestException(
@@ -46,8 +44,6 @@ export class PrismaDbExceptionFilter extends BaseExceptionFilter {
           break;
 
         default:
-          console.log(`meta`, meta);
-          console.log(`code`, code);
           break;
       }
     }
