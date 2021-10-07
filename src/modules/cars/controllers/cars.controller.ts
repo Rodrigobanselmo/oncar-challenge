@@ -34,16 +34,17 @@ export class CarsController {
     @Query() filterQueryDto: FilterQueryDto,
     @Query() includesQueryDto: IncludesQueryDto,
   ) {
-    return this.carsService.findAll(
+    const allCars = await this.carsService.findAll(
       paginationQuery,
       filterQueryDto,
       includesQueryDto,
     );
+    allCars.map((car) => new CarEntity(car));
   }
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.carsService.findOne(+id);
+    return new CarEntity(await this.carsService.findOne(+id));
   }
 
   @Patch(':id')
@@ -51,11 +52,11 @@ export class CarsController {
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidatePayloadExistsPipe) updateCarDto: UpdateCarDto,
   ) {
-    return this.carsService.update(+id, updateCarDto);
+    return new CarEntity(await this.carsService.update(+id, updateCarDto));
   }
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return this.carsService.remove(+id);
+    return new CarEntity(await this.carsService.remove(+id));
   }
 }
