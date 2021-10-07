@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform, TransformFnParams } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
@@ -14,10 +14,10 @@ import {
   ValidateNested,
 } from 'class-validator';
 
+import { CpfFormatTransform } from '../../../shared/transformers/cpf-format.transform';
+import { PhoneFormatTransform } from '../../../shared/transformers/phone-format.transform';
 import { CreateSimulationAddressDto } from './create-simulation-address.dto';
 import { Simulations } from '.prisma/client';
-import { PhoneFormatTransform } from '../../../shared/transformers/phone-format.transform';
-import { CpfFormatTransform } from '../../../shared/transformers/cpf-format.transform';
 
 export class CreateSimulationDto
   implements Omit<Simulations, 'id' | 'created_at' | 'score'>

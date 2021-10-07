@@ -7,11 +7,10 @@ import {
   Length,
   Max,
   MaxLength,
-  Min,
 } from 'class-validator';
 
-import { CepFormatTransform } from './../../../shared/transformers/cep-format.transform';
 import { StringUppercaseTransform } from '../../../shared/transformers/string-uppercase.transform';
+import { CepFormatTransform } from './../../../shared/transformers/cep-format.transform';
 import { Address } from '.prisma/client';
 
 export class CreateSimulationAddressDto

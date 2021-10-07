@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Address, Simulations } from '.prisma/client';
+
+import { AddressEntity } from './address.entity';
+import { Simulations } from '.prisma/client';
 
 export class SimulationEntity implements Simulations {
   @ApiProperty()
@@ -36,7 +38,7 @@ export class SimulationEntity implements Simulations {
   created_at: Date;
 
   @ApiProperty()
-  address?: Address;
+  address?: AddressEntity;
 
   constructor(partial: Partial<SimulationEntity>) {
     Object.assign(this, partial);
