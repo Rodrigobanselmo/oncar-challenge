@@ -14,6 +14,6 @@ interface ICarsRepository {
     includesQueryDto: IncludesQueryDto,
   ): Promise<Car[]>;
   findById(id: number): Promise<Car | undefined>;
-  deleteById(id: number): Promise<Prisma.Prisma__SimulationsClient<Car>>;
+  deleteById(id: number): Promise<Prisma.Prisma__CarClient<Car>>;
 }
 export { ICarsRepository };
