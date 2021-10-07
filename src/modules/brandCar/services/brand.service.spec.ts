@@ -27,7 +27,7 @@ describe('BrandService', () => {
       const creationData = new FakerBrand();
 
       const brand = await service.create(creationData);
-      expect(brand).toHaveProperty('name');
+      expect(brand).toHaveProperty('name', creationData.name);
     });
 
     it('should not create if brand name already exists', async () => {
@@ -50,7 +50,6 @@ describe('BrandService', () => {
       await service.create(new FakerBrand());
 
       const allBrands = await service.findAll();
-      console.log(`allBrands`, allBrands);
       expect(allBrands).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
@@ -59,6 +58,32 @@ describe('BrandService', () => {
           }),
         ]),
       );
+    });
+  });
+
+  describe('Find one brand', () => {
+    it('should find by name and return one brand', async () => {
+      const { name } = await service.create(new FakerBrand());
+
+      const brand = await service.findOne(name, {});
+      expect(brand).toHaveProperty('name', name);
+      expect(brand).not.toHaveProperty('cars');
+      expect(brand).not.toHaveProperty('models');
+    });
+    it('should find by name and return one brand with its related models and cars', async () => {
+      const { name } = await service.create(new FakerBrand());
+
+      const brand = await service.findOne(name, { models: 'get', cars: 'get' });
+      expect(brand).toHaveProperty('name', name);
+      expect(brand).toHaveProperty('cars', []);
+      expect(brand).toHaveProperty('models', []);
+    });
+  });
+  describe('Find one brand', () => {
+    it('should remove by name and return the deleted brand ', async () => {
+      const { name } = await service.create(new FakerBrand());
+      const brand = await service.remove(name);
+      expect(brand).toHaveProperty('name', name);
     });
   });
 });
