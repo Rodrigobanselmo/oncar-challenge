@@ -1,7 +1,7 @@
 import { TransformFnParams } from 'class-transformer';
 
 function FormatPhoneNumber(phoneNumber: string) {
-  if (length === 10) {
+  if (phoneNumber.length === 10) {
     return (
       '(' +
       `${phoneNumber}`.substring(0, 2) +
@@ -10,7 +10,7 @@ function FormatPhoneNumber(phoneNumber: string) {
       '-' +
       `${phoneNumber}`.substring(6, 10)
     );
-  } else if (length === 11) {
+  } else if (phoneNumber.length === 11) {
     return (
       '(' +
       `${phoneNumber}`.substring(0, 2) +
