@@ -60,7 +60,7 @@ model Simulations {
 
 model Address {
   id    Int     @default(autoincrement()) @id
-  cep Int 
+  cep String 
   street String
   number Int
   complement String
