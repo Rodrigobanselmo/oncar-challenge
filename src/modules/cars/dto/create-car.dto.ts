@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsIn,
-  IsNumber,
+  IsInt,
   IsOptional,
   IsString,
   Length,
@@ -22,7 +22,7 @@ export class CreateCarDto {
   readonly color: string;
 
   @ApiProperty({ description: 'car price in cents.' })
-  @IsNumber()
+  @IsInt()
   readonly price: number;
 
   @ApiProperty({
@@ -37,7 +37,7 @@ export class CreateCarDto {
   readonly year: string;
 
   @ApiProperty({ description: 'car mileage in kilometers.' })
-  @IsNumber()
+  @IsInt()
   readonly kilometers: number;
 
   @ApiProperty({ description: 'car fuel type.' })
