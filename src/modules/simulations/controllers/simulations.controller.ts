@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { SimulationsService } from '../services/simulations.service';
 import { CreateSimulationDto } from '../dto/create-simulation.dto';
-import { UpdateSimulationDto } from '../dto/update-simulation.dto';
 
 @Controller('simulations')
 export class SimulationsController {
@@ -28,14 +19,6 @@ export class SimulationsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.simulationsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateSimulationDto: UpdateSimulationDto,
-  ) {
-    return this.simulationsService.update(+id, updateSimulationDto);
   }
 
   @Delete(':id')

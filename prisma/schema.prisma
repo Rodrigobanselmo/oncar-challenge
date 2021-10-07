@@ -54,6 +54,7 @@ model Simulations {
   haveHelp Boolean
   dirtyName Boolean
   created_at DateTime @default(now())
+  score Int
   address Address?
 }
 

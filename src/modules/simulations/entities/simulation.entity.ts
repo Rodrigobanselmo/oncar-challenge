@@ -15,10 +15,10 @@ export class SimulationEntity implements Simulations {
   phone: number;
 
   @ApiProperty()
-  birthDate: string;
+  birthDate: Date;
 
   @ApiProperty()
-  email: number;
+  email: string;
 
   @ApiProperty()
   income: number;
@@ -30,7 +30,7 @@ export class SimulationEntity implements Simulations {
   dirtyName: boolean;
 
   @ApiProperty()
-  updated_at: Date;
+  score: number;
 
   @ApiProperty()
   created_at: Date;
