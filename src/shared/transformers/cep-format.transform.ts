@@ -6,7 +6,7 @@ function FormatCep(cep: string) {
 }
 
 export const CepFormatTransform = (data: TransformFnParams) => {
-  const cep = data.obj[data.key];
+  const cep = String(data.obj[data.key]);
   if (typeof cep === 'string' && cep.length < 10) {
     const onlyNumbersCep = cep.replace(/\D+/g, '');
     const formattedCep = FormatCep(onlyNumbersCep);

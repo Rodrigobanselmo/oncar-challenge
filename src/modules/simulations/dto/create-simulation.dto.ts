@@ -7,6 +7,7 @@ import {
   IsInt,
   IsString,
   Length,
+  Max,
   MaxDate,
   Min,
   MinDate,
@@ -29,13 +30,13 @@ export class CreateSimulationDto
   // @Transform(keepOnlyNumberTransform, { toClassOnly: true })
   @Transform(CpfFormatTransform, { toClassOnly: true })
   @IsString()
-  @Length(11)
+  @Length(14, 14)
   cpf: string;
 
   @ApiProperty({ description: 'person phone number.' })
   @Transform(PhoneFormatTransform, { toClassOnly: true })
   @IsString()
-  @Length(14)
+  @Length(14, 15)
   phone: string;
 
   @ApiProperty({ description: 'person birth date.' })
@@ -52,6 +53,7 @@ export class CreateSimulationDto
   @ApiProperty({ description: 'monthly income money.' })
   @IsInt()
   @Min(0)
+  @Max(1000000000) // 10ˆ9
   income: number;
 
   @ApiProperty({ description: 'if person will have help.' })

@@ -24,8 +24,7 @@ export class CreateSimulationAddressDto
 
   @ApiProperty({ description: 'address cep.' })
   @Transform(CepFormatTransform, { toClassOnly: true })
-  @Min(10000000)
-  @Max(99999999)
+  @Length(9, 9)
   cep: string;
 
   @ApiProperty({ description: 'address street.' })
@@ -51,7 +50,7 @@ export class CreateSimulationAddressDto
   @ApiProperty({ description: 'address estate.' })
   @Transform(StringUppercaseTransform, { toClassOnly: true })
   @IsString()
-  @Length(2)
+  @Length(2, 2)
   @IsUppercase()
   estate: string;
 }

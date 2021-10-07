@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { TransformFnParams } from 'class-transformer';
 
 function TestaCPF(strCPF: string) {
@@ -45,8 +46,7 @@ export const CpfFormatTransform = (data: TransformFnParams) => {
 
     const isValidCpf = TestaCPF(onlyNumbersCpf);
 
-    if (!isValidCpf) return null;
-
+    if (!isValidCpf) throw new BadRequestException('Cpf inválido');
     const formattedCpf = FormatCpf(onlyNumbersCpf);
     return formattedCpf;
   }
