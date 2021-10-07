@@ -45,11 +45,12 @@ describe('BrandService', () => {
 
   describe('Find all brands', () => {
     it('should find and return all brands', async () => {
-      await service.create(new FakerBrand());
-      await service.create(new FakerBrand());
-      await service.create(new FakerBrand());
+      const b1 = await service.create(new FakerBrand());
+      const b2 = await service.create(new FakerBrand());
+      const b3 = await service.create(new FakerBrand());
 
       const allBrands = await service.findAll();
+      expect(allBrands).toEqual(expect.arrayContaining([b1, b2, b3]));
       expect(allBrands).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
