@@ -79,6 +79,13 @@ describe('BrandService', () => {
       expect(brand).toHaveProperty('cars', []);
       expect(brand).toHaveProperty('models', []);
     });
+    it('should not find by name if name does not exists', async () => {
+      try {
+        await service.findOne('fake-name', {});
+      } catch (err) {
+        expect(err).toBeInstanceOf(BadRequestException);
+      }
+    });
   });
   describe('Delete one brand', () => {
     it('should remove by name and return the deleted brand ', async () => {
