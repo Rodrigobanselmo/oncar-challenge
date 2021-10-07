@@ -1,66 +1,68 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform, TransformFnParams } from 'class-transformer';
 import {
   IsBoolean,
+  IsDate,
   IsEmail,
   IsInt,
   IsString,
   Length,
-  Max,
   MaxDate,
   Min,
   MinDate,
+  ValidateNested,
 } from 'class-validator';
 
 import { CreateSimulationAddressDto } from './create-simulation-address.dto';
 import { Simulations } from '.prisma/client';
+import { PhoneFormatTransform } from '../../../shared/transformers/phone-format.transform';
+import { CpfFormatTransform } from '../../../shared/transformers/cpf-format.transform';
 
 export class CreateSimulationDto
-  implements Omit<Simulations, 'id' | 'created_at'>
+  implements Omit<Simulations, 'id' | 'created_at' | 'score'>
 {
-  @ApiProperty()
+  @ApiProperty({ description: 'person name.' })
   @IsString()
   name: string;
 
-  @ApiProperty()
-  @IsInt()
-  @Length(14)
-  cpf: number;
-
-  @ApiProperty()
-  @IsInt()
-  @Length(10, 11)
-  phone: number;
-
-  @ApiProperty()
+  @ApiProperty({ description: 'person cpf.' })
+  // @Transform(keepOnlyNumberTransform, { toClassOnly: true })
+  @Transform(CpfFormatTransform, { toClassOnly: true })
   @IsString()
+  @Length(11)
+  cpf: string;
+
+  @ApiProperty({ description: 'person phone number.' })
+  @Transform(PhoneFormatTransform, { toClassOnly: true })
+  @IsString()
+  @Length(14)
+  phone: string;
+
+  @ApiProperty({ description: 'person birth date.' })
+  @IsDate()
   @MinDate(new Date(new Date().setFullYear(new Date().getFullYear() - 150)))
   @MaxDate(new Date(new Date().setFullYear(new Date().getFullYear() - 18)))
   birthDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'person email.' })
   @IsString()
   @IsEmail()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'monthly income money.' })
   @IsInt()
   @Min(0)
   income: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'if person will have help.' })
   @IsBoolean()
   haveHelp: boolean;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'if person has dirty name.' })
   @IsBoolean()
   dirtyName: boolean;
 
-  @ApiProperty()
-  @IsInt()
-  @Min(0)
-  @Max(999)
-  score: number;
-
-  @ApiProperty()
+  @ApiProperty({ description: 'address validation.' })
+  @ValidateNested()
   address: CreateSimulationAddressDto;
 }

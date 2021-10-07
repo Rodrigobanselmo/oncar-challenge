@@ -9,10 +9,10 @@ export class SimulationEntity implements Simulations {
   name: string;
 
   @ApiProperty()
-  cpf: number;
+  cpf: string;
 
   @ApiProperty()
-  phone: number;
+  phone: string;
 
   @ApiProperty()
   birthDate: Date;

@@ -1,12 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import {
   IsPositive,
   IsString,
   IsUppercase,
   Length,
+  Max,
   MaxLength,
+  Min,
 } from 'class-validator';
 
+import { CepFormatTransform } from './../../../shared/transformers/cep-format.transform';
+import { StringUppercaseTransform } from '../../../shared/transformers/string-uppercase.transform';
 import { Address } from '.prisma/client';
 
 export class CreateSimulationAddressDto
@@ -14,12 +19,14 @@ export class CreateSimulationAddressDto
 {
   @ApiProperty({ description: 'address number.' })
   @IsPositive()
-  @MaxLength(6)
+  @Max(9999999)
   number: number;
 
   @ApiProperty({ description: 'address cep.' })
-  @Length(8)
-  cep: number;
+  @Transform(CepFormatTransform, { toClassOnly: true })
+  @Min(10000000)
+  @Max(99999999)
+  cep: string;
 
   @ApiProperty({ description: 'address street.' })
   @IsString()
@@ -42,8 +49,9 @@ export class CreateSimulationAddressDto
   city: string;
 
   @ApiProperty({ description: 'address estate.' })
+  @Transform(StringUppercaseTransform, { toClassOnly: true })
   @IsString()
-  @MaxLength(2)
+  @Length(2)
   @IsUppercase()
   estate: string;
 }
