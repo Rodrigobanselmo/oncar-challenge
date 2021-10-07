@@ -61,10 +61,10 @@ model Simulations {
 model Address {
   id    Int     @default(autoincrement()) @id
   cep Int 
-  address String
+  street String
   number Int
   complement String
-  neighbour String
+  neighborhood String
   city String
   estate String
   simulationId Int
