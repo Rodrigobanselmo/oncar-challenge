@@ -10,7 +10,7 @@ import { BrandController } from './brand.controller';
 describe('BrandController', () => {
   let controller: BrandController;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [BrandController],
       providers: [BrandService, PrismaService, BrandRepository],

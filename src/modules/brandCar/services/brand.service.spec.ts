@@ -11,7 +11,7 @@ import { BrandService } from './brand.service';
 describe('BrandService', () => {
   let service: BrandService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [BrandService, PrismaService, BrandRepository],
     }).compile();

@@ -6,7 +6,7 @@ import { SimulationsService } from './simulations.service';
 describe('SimulationsService', () => {
   let service: SimulationsService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [SimulationsService, PrismaService, SimulationsRepository],
     }).compile();

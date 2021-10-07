@@ -10,7 +10,7 @@ import { ModelsController } from './models.controller';
 describe('ModelsController', () => {
   let controller: ModelsController;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ModelsController],
       providers: [ModelsService, PrismaService, ModelRepository],
