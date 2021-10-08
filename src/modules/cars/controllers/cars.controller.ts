@@ -7,8 +7,10 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  Res,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
 import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { CreateCarDto } from '../dto/create-car.dto';
@@ -32,13 +34,16 @@ export class CarsController {
     @Query() paginationQuery: PaginationQueryDto,
     @Query() filterQueryDto: FilterQueryDto,
     @Query() includesQueryDto: IncludesQueryDto,
+    @Res() resp: Response,
   ) {
     const [allCars, totalCars] = await this.carsService.findAll(
       paginationQuery,
       filterQueryDto,
       includesQueryDto,
     );
-    return [allCars.map((car) => new CarEntity(car)), totalCars];
+    resp
+      .append('totalCount', totalCars.toString())
+      .json(allCars.map((car) => new CarEntity(car)));
   }
 
   @Get(':id')
