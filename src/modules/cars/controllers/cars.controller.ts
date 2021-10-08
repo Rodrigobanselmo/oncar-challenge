@@ -33,12 +33,12 @@ export class CarsController {
     @Query() filterQueryDto: FilterQueryDto,
     @Query() includesQueryDto: IncludesQueryDto,
   ) {
-    const allCars = await this.carsService.findAll(
+    const [allCars, totalCars] = await this.carsService.findAll(
       paginationQuery,
       filterQueryDto,
       includesQueryDto,
     );
-    return allCars.map((car) => new CarEntity(car));
+    return [allCars.map((car) => new CarEntity(car)), totalCars];
   }
 
   @Get(':id')

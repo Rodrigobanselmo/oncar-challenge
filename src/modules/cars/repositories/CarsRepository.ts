@@ -109,34 +109,37 @@ export class CarsRepository implements ICarsRepository {
     paginationQuery: PaginationQueryDto,
     filterQueryDto: FilterQueryDto,
     includesQueryDto: IncludesQueryDto,
-  ): Promise<Car[]> {
+  ): Promise<[Car[], number]> {
     const { limit = 10, offset = 0 } = paginationQuery;
     const { brandName, modelName, maxPrice, minPrice } = filterQueryDto;
     const { brand, model } = includesQueryDto;
 
-    return this.prisma.car.findMany({
-      skip: offset,
-      take: limit,
-      orderBy: {
-        created_at: 'desc',
-      },
-      where: {
-        brandName: {
-          equals: brandName,
+    return this.prisma.$transaction([
+      this.prisma.car.findMany({
+        skip: offset,
+        take: limit,
+        orderBy: {
+          created_at: 'desc',
         },
-        modelName: {
-          equals: modelName,
+        where: {
+          brandName: {
+            equals: brandName,
+          },
+          modelName: {
+            equals: modelName,
+          },
+          price: {
+            gte: minPrice,
+            lte: maxPrice,
+          },
         },
-        price: {
-          gte: minPrice,
-          lte: maxPrice,
+        include: {
+          brand: brand === 'get' ? true : false,
+          model: model === 'get' ? true : false,
         },
-      },
-      include: {
-        brand: brand === 'get' ? true : false,
-        model: model === 'get' ? true : false,
-      },
-    });
+      }),
+      this.prisma.car.count(),
+    ]);
   }
 
   findById(id: number): Promise<Car> {

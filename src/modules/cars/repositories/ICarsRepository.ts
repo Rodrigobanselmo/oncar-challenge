@@ -12,7 +12,7 @@ interface ICarsRepository {
     paginationQuery: PaginationQueryDto,
     filterQueryDto: FilterQueryDto,
     includesQueryDto: IncludesQueryDto,
-  ): Promise<Car[]>;
+  ): Promise<[Car[], number]>;
   findById(id: number): Promise<Car | undefined>;
   deleteById(id: number): Promise<Prisma.Prisma__CarClient<Car>>;
 }
