@@ -98,11 +98,13 @@ describe('CarsService', () => {
   });
 
   describe('Find all cars', () => {
-    it('should find and return all cars with default pagination limit in createdAt order', async () => {
+    it('should find and return all cars with default pagination limit, total of cars and in createdAt order', async () => {
       const c1 = await service.create(new FakerCar());
       const c2 = await service.create(new FakerCar());
 
-      const allCars = await service.findAll({}, {}, {});
+      const [allCars, totalCars] = await service.findAll({}, {}, {});
+
+      expect(totalCars).toBeGreaterThan(1);
       expect(allCars).toEqual(expect.arrayContaining([c1, c2]));
       expect(allCars).toEqual(
         expect.arrayContaining([
@@ -123,11 +125,12 @@ describe('CarsService', () => {
         new FakerCar({ brandName: 'createdBrand' }),
       );
 
-      const allCars = await service.findAll(
+      const [allCars, totalCars] = await service.findAll(
         { limit: 3 },
         { brandName: 'createdBrand' },
         {},
       );
+      expect(totalCars).toBeGreaterThan(1);
       expect(allCars).toEqual(expect.arrayContaining([c1, c2]));
       expect(allCars).toEqual(
         expect.arrayContaining([
@@ -144,11 +147,12 @@ describe('CarsService', () => {
       const c2 = await service.create(new FakerCar({ price: 90000 }));
       const c3 = await service.create(new FakerCar({ price: 490000 }));
 
-      const allCars = await service.findAll(
+      const [allCars, totalCars] = await service.findAll(
         { limit: 20 },
         { minPrice: 100000, maxPrice: 400000 },
         {},
       );
+      expect(totalCars).toBeGreaterThan(2);
       expect(allCars).toEqual(expect.arrayContaining([c1]));
       expect(allCars).toEqual(expect.not.arrayContaining([c2, c3]));
     });

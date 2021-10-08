@@ -48,7 +48,8 @@ describe('CarsController', () => {
       const c1 = await controller.create(new FakerCar());
       const c2 = await controller.create(new FakerCar());
 
-      const allCars = await controller.findAll({}, {}, {});
+      const [allCars, totalCars] = await controller.findAll({}, {}, {});
+      expect(totalCars).toBeGreaterThan(1);
       expect(allCars).toEqual(expect.arrayContaining([c1, c2]));
       expect(allCars).toEqual(
         expect.arrayContaining([
