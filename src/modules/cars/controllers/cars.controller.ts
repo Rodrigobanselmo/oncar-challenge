@@ -41,8 +41,8 @@ export class CarsController {
       filterQueryDto,
       includesQueryDto,
     );
-    resp
-      .append('totalCount', totalCars.toString())
+    return resp
+      .header('totalCount', totalCars.toString())
       .json(allCars.map((car) => new CarEntity(car)));
   }
 

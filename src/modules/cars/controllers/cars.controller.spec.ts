@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Response } from 'express';
 
 import { FakerCar } from '../../../../test/fake/car.fake';
 import { PrismaService } from '../../../prisma/prisma.service';
@@ -47,9 +48,22 @@ describe('CarsController', () => {
     it('should find and return all car Entities', async () => {
       const c1 = await controller.create(new FakerCar());
       const c2 = await controller.create(new FakerCar());
+      const response = {
+        header: (key: string, value: string) => {
+          return {
+            json: (data: any) => [data, value],
+          };
+        },
+      };
 
-      const [allCars, totalCars] = await controller.findAll({}, {}, {});
-      expect(totalCars).toBeGreaterThan(1);
+      const [allCars, totalCars] = (await controller.findAll(
+        {},
+        {},
+        {},
+        response as any,
+      )) as any;
+
+      expect(Number(totalCars)).toBeGreaterThan(1);
       expect(allCars).toEqual(expect.arrayContaining([c1, c2]));
       expect(allCars).toEqual(
         expect.arrayContaining([
