@@ -16,21 +16,26 @@ export class FakerCar implements CreateCarDto {
     this.data && this.data?.desc && (this.desc = this.data.desc);
     this.data && this.data?.price && (this.price = this.data.price);
 
+    const date = this.random(1970, 2021);
+    this.year = `${date}/${date + 1}`;
+
     {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { data, ...car } = this;
+      const { data, random, ...car } = this;
       return car;
     }
   }
 
   plate = faker.datatype.string();
   color = faker.commerce.color();
-  price = faker.datatype.number(5000000);
-  year = '2002/2003';
+  price = faker.datatype.number(500) * 1000;
   kilometers = faker.datatype.number(1000000);
   fuel = Object.keys(FuelOptions)[faker.datatype.number(4)];
-  desc: string | undefined;
-
+  year: string;
   brandName: string;
   modelName: string;
+  desc: string | undefined;
+
+  private random? = (min: number, max: number) =>
+    Math.floor(Math.random() * (max - min)) + min;
 }
