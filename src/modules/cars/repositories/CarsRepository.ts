@@ -1,13 +1,13 @@
-import { IncludesQueryDto } from '../dto/includes-query-car.dto';
-import { CreateCarDto } from './../dto/create-car.dto';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from './../../../prisma/prisma.service';
-import { Car, Prisma } from '.prisma/client';
-import { ICarsRepository } from './ICarsRepository';
-import { UpdateCarDto } from '../dto/update-car.dto';
 import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { FilterQueryDto } from '../dto/filter-query.dto-car';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
+import { UpdateCarDto } from '../dto/update-car.dto';
+import { PrismaService } from './../../../prisma/prisma.service';
+import { CreateCarDto } from './../dto/create-car.dto';
+import { ICarsRepository } from './ICarsRepository';
+import { Car, Prisma } from '.prisma/client';
 
 @Injectable()
 export class CarsRepository implements ICarsRepository {
@@ -111,7 +111,7 @@ export class CarsRepository implements ICarsRepository {
     includesQueryDto: IncludesQueryDto,
   ): Promise<Car[]> {
     const { limit = 10, offset = 0 } = paginationQuery;
-    const { brandName, modelName } = filterQueryDto;
+    const { brandName, modelName, maxPrice, minPrice } = filterQueryDto;
     const { brand, model } = includesQueryDto;
 
     return this.prisma.car.findMany({
@@ -126,6 +126,10 @@ export class CarsRepository implements ICarsRepository {
         },
         modelName: {
           equals: modelName,
+        },
+        price: {
+          gte: minPrice,
+          lte: maxPrice,
         },
       },
       include: {

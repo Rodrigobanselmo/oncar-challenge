@@ -8,4 +8,12 @@ export class FilterQueryDto {
   @IsOptional()
   @IsString()
   modelName?: string;
+
+  @IsOptional()
+  @IsString()
+  minPrice?: number;
+
+  @IsOptional()
+  @IsString()
+  maxPrice?: number;
 }

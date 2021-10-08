@@ -1,14 +1,9 @@
-import { IncludesQueryDto } from '../dto/includes-query-car.dto';
-import { ModelRepository } from '../../modelCar/repositories/ModelRepository';
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
+import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
 import { CreateCarDto } from '../dto/create-car.dto';
 import { FilterQueryDto } from '../dto/filter-query.dto-car';
-import { PaginationQueryDto } from '../../../shared/dto/pagination-query.dto';
+import { IncludesQueryDto } from '../dto/includes-query-car.dto';
 import { UpdateCarDto } from '../dto/update-car.dto';
 import { CarsRepository } from '../repositories/CarsRepository';
 
