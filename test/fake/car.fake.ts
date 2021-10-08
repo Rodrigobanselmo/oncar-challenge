@@ -3,24 +3,22 @@ import { FuelOptions } from '../../src/modules/cars/constants/fuel.constants';
 import { CreateCarDto } from '../../src/modules/cars/dto/create-car.dto';
 
 export class FakerCar implements CreateCarDto {
-  constructor(
-    private readonly connectBrand?: string,
-    private readonly connectModel?: string,
-    private readonly description?: string,
-  ) {
-    this.connectBrand
-      ? (this.brandName = this.connectBrand)
+  constructor(private readonly data?: Partial<CreateCarDto>) {
+    this.data && this.data?.brandName
+      ? (this.brandName = this.data.brandName)
       : (this.brandName =
           faker.vehicle.manufacturer() + ' ' + faker.datatype.uuid());
 
-    this.connectModel
-      ? (this.modelName = this.connectModel)
+    this.data && this.data?.modelName
+      ? (this.modelName = this.data.modelName)
       : (this.modelName = faker.vehicle.model() + ' ' + faker.datatype.uuid());
 
-    this.description && (this.desc = this.description);
+    this.data && this.data?.desc && (this.desc = this.data.desc);
+    this.data && this.data?.price && (this.price = this.data.price);
 
     {
-      const { connectBrand, connectModel, description, ...car } = this;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { data, ...car } = this;
       return car;
     }
   }

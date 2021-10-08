@@ -116,8 +116,12 @@ describe('CarsService', () => {
     });
 
     it('should find and return all cars with pagination limit = 3 and filtered by brand', async () => {
-      const c1 = await service.create(new FakerCar('createdBrand'));
-      const c2 = await service.create(new FakerCar('createdBrand'));
+      const c1 = await service.create(
+        new FakerCar({ brandName: 'createdBrand' }),
+      );
+      const c2 = await service.create(
+        new FakerCar({ brandName: 'createdBrand' }),
+      );
 
       const allCars = await service.findAll(
         { limit: 3 },
@@ -134,6 +138,19 @@ describe('CarsService', () => {
         ]),
       );
       expect(allCars.length).toBeLessThanOrEqual(3);
+    });
+    it('should find and return all cars with price greater that 100.000 and lower than 400.000', async () => {
+      const c1 = await service.create(new FakerCar({ price: 110000 }));
+      const c2 = await service.create(new FakerCar({ price: 90000 }));
+      const c3 = await service.create(new FakerCar({ price: 490000 }));
+
+      const allCars = await service.findAll(
+        { limit: 20 },
+        { minPrice: 100000, maxPrice: 400000 },
+        {},
+      );
+      expect(allCars).toEqual(expect.arrayContaining([c1]));
+      expect(allCars).toEqual(expect.not.arrayContaining([c2, c3]));
     });
   });
 
