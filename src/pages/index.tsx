@@ -10,10 +10,7 @@ const Home: NextPage = () => {
     <PageContainer id={"home_page"}>
       <Head>
         <title>Oncar</title>
-        <meta
-          name="description"
-          content="financiamento de carros e simulação de crédito"
-        />
+        <meta name="description" content="financiamento de carros" />
       </Head>
       <MainHome />
       <footer></footer>
