@@ -5,4 +5,11 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
+  images: {
+    domains: [
+      "placeimg.com",
+      "i.pinimg.com",
+      "tonyveiculos.s3.sa-east-1.amazonaws.com",
+    ],
+  },
 });
