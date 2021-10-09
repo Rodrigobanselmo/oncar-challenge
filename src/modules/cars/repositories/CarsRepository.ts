@@ -138,7 +138,20 @@ export class CarsRepository implements ICarsRepository {
           model: model === 'get' ? true : false,
         },
       }),
-      this.prisma.car.count(),
+      this.prisma.car.count({
+        where: {
+          brandName: {
+            equals: brandName,
+          },
+          modelName: {
+            equals: modelName,
+          },
+          price: {
+            gte: minPrice,
+            lte: maxPrice,
+          },
+        },
+      }),
     ]);
   }
 

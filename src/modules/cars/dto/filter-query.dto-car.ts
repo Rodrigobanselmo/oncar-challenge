@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsNumber } from 'class-validator';
 
 export class FilterQueryDto {
   @IsOptional()
@@ -10,10 +10,10 @@ export class FilterQueryDto {
   modelName?: string;
 
   @IsOptional()
-  @IsString()
+  @IsNumber()
   minPrice?: number;
 
   @IsOptional()
-  @IsString()
+  @IsNumber()
   maxPrice?: number;
 }
