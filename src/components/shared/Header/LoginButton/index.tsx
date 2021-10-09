@@ -18,18 +18,10 @@ export function LoginNav(): JSX.Element {
       ) : (
         <Button
           fontSize={"sm"}
-          fontWeight={600}
-          color={"white"}
-          bg={"main.500"}
           leftIcon={<LockIcon />}
           href={"#"}
           iconSpacing={"10px"}
-          _hover={{
-            bg: "main.600",
-          }}
-          _active={{
-            bg: "main.700",
-          }}
+          variant={"main"}
         >
           Entrar
         </Button>
