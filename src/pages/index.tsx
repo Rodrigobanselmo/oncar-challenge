@@ -6,17 +6,17 @@ import { CarCard } from "../components/shared/Cards/Car";
 import { CarSkeleton } from "../components/shared/Cards/CarSkeleton";
 import { CarFilter } from "../components/shared/Filters/CarFilter";
 import { Pagination } from "../components/shared/Pagination";
-import { useCars } from "../services/hooks/useCars";
+import { useCars } from "../services/hooks/Queries/useCars";
 
 import type { NextPage } from "next";
+import { PageContainer } from "../components/shared/Container";
 
 const Home: NextPage = () => {
   const [page, setPage] = React.useState(1);
   const limit = useBreakpointValue({ sm: 5, md: 6, xl: 10 });
   const { data, isLoading } = useCars(page, limit);
-
   return (
-    <div>
+    <PageContainer>
       <Head>
         <title>Oncar</title>
         <meta
@@ -29,6 +29,7 @@ const Home: NextPage = () => {
         as="main"
         maxW={"container.xl"}
         m="auto"
+        mb={20}
         px={["3rem", null, "4rem"]}
         pt={20}
       >
@@ -48,7 +49,7 @@ const Home: NextPage = () => {
         />
       </Box>
       <footer></footer>
-    </div>
+    </PageContainer>
   );
 };
 
