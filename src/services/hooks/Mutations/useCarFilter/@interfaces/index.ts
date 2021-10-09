@@ -6,14 +6,7 @@ export interface CarAPI extends Omit<Car, "price" | "fuel"> {
 }
 export type CarsAPI = CarAPI[];
 
-export interface GetCarsResponse {
+export interface GetResponse {
   totalCount: number;
   cars: Car[];
-}
-
-export interface IFilters {
-  minPrice?: number;
-  maxPrice?: number;
-  brandName?: string;
-  modelName?: string;
 }

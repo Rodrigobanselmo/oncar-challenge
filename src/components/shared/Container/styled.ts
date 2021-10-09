@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface IContainerStyled {
-  isDarkMode: boolean;
+  is_dark_mode: number;
 }
 
 export const ContainerStyled = styled(Box)<IContainerStyled>`
@@ -26,7 +26,7 @@ export const ContainerStyled = styled(Box)<IContainerStyled>`
   }
 
   ${(props) =>
-    props.isDarkMode &&
+    props.is_dark_mode &&
     css`
       &::-webkit-scrollbar-track {
         background: ${props.theme.colors.gray[800]};

@@ -1,27 +1,35 @@
-import {
-  Grid,
-  GridItem,
-  Select,
-  useColorModeValue,
-  Button,
-  VStack,
-} from "@chakra-ui/react";
-import React, { ChangeEvent, useMemo, useState } from "react";
+import { Button, Grid, GridItem, VStack } from "@chakra-ui/react";
+import React, { ChangeEvent, useMemo, useState, MouseEvent } from "react";
 
-import { PRICES } from "../../../../constants/prices.constants";
-import { useBrandModel } from "../../../../services/hooks/Queries/useBrandModel";
-import styled from "@emotion/styled";
-import { SelectChakra } from "../../Forms/Select";
+import { PRICES } from "../../../constants/prices.constants";
+import { useBrandModel } from "../../../services/hooks/Queries/useBrandModel";
+import { IFilters } from "../../../services/hooks/Queries/useCars/@interfaces";
+import { SelectChakra } from "../../shared/Forms/Select";
 
-const SelectStyled = styled(Select)``;
+interface IProps {
+  setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
+}
 
-export function CarFilter(): JSX.Element {
+export function CarFilter({ setFilters }: IProps): JSX.Element {
   const { data, isLoading } = useBrandModel();
 
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedLowerPrice, setSelectedLowerPrice] = useState("");
   const [selectedHigherPrice, setSelectedHigherPrice] = useState("");
+
+  function handleSearchCars(event: MouseEvent<HTMLButtonElement>) {
+    const filters = {} as IFilters;
+
+    if (selectedBrand) filters.brandName = selectedBrand;
+    if (selectedModel) filters.modelName = selectedModel;
+    if (Number(selectedHigherPrice))
+      filters.maxPrice = Number(selectedHigherPrice) * 1000;
+    if (Number(selectedLowerPrice))
+      filters.minPrice = Number(selectedLowerPrice) * 1000;
+
+    setFilters(filters);
+  }
 
   function handleSelectBrand(event: ChangeEvent<HTMLSelectElement>) {
     const brandName = event.target.value;
@@ -118,7 +126,12 @@ export function CarFilter(): JSX.Element {
           </SelectChakra>
         </GridItem>
       </Grid>
-      <Button isLoading={isLoading} size={"md"} variant={"main"}>
+      <Button
+        onClick={handleSearchCars}
+        isLoading={isLoading}
+        size={"md"}
+        variant={"main"}
+      >
         BUSCAR
       </Button>
     </VStack>

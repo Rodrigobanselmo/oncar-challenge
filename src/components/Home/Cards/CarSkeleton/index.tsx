@@ -32,7 +32,7 @@ export function CarSkeleton(): JSX.Element {
 
         <SimpleGrid mt={4} gap={1} columns={[3, 3, 3, 3, 1]}>
           {[1, 2, 3].map((i) => (
-            <HStack>
+            <HStack key={i}>
               <SkeletonCircle size="4" />
               <Skeleton height={1} w={30} />
             </HStack>

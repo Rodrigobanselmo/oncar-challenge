@@ -11,7 +11,7 @@ import { FaGasPump } from "react-icons/fa";
 import { IoIosSpeedometer } from "react-icons/io";
 
 import { Car } from "../../../../@types/cars";
-import { ChakraNextImage } from "../../NextImage";
+import { ChakraNextImage } from "../../../shared/NextImage";
 import { GridShadowHover } from "./styles";
 
 interface ICarCardProps {
@@ -61,15 +61,15 @@ export function CarCard({ car }: ICarCardProps): JSX.Element {
         </Text>
         <SimpleGrid columns={[3, 3, 3, 3, 1]}>
           <HStack>
-            <CalendarIcon />
+            <CalendarIcon boxSize={3} />
             <Text>{car.year}</Text>
           </HStack>
           <HStack>
-            <Icon as={FaGasPump} />
+            <Icon as={FaGasPump} boxSize={3} />
             <Text>{car.fuel}</Text>
           </HStack>
           <HStack>
-            <Icon as={IoIosSpeedometer} />
+            <Icon as={IoIosSpeedometer} boxSize={3} />
             <Text>{car.kilometers}</Text>
           </HStack>
         </SimpleGrid>

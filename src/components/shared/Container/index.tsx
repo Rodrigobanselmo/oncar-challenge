@@ -11,10 +11,10 @@ export function PageContainer({
   children,
   ...res
 }: IContainerProps): JSX.Element {
-  const isDarkMode = useColorModeValue(false, true);
+  const isDarkMode = useColorModeValue(0, 1);
   return (
     <ContainerStyled
-      isDarkMode={isDarkMode}
+      is_dark_mode={isDarkMode}
       h={"100vh"}
       w={"100vw"}
       overflow="auto"

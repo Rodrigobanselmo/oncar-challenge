@@ -1,18 +1,19 @@
-import { Brand } from "../../../../@types/brands";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import { GetResponse, CarsAPI } from "./@interfaces";
-import api from "../../../api";
-import { sortAsc } from "../../../../utils/sort/asc.sort";
+
 import { FuelOptions } from "../../../../constants/fuel-options.constants";
+import api from "../../../api";
+import { CarsAPI, GetCarsResponse, IFilters } from "./@interfaces";
 
 export async function getCars(
   page: number,
-  limit: number
-): Promise<GetResponse> {
+  limit: number,
+  filter: IFilters
+): Promise<GetCarsResponse> {
   const response = await api.get<CarsAPI>("cars", {
     params: {
       page,
       limit,
+      ...filter,
     },
   });
 
@@ -24,6 +25,7 @@ export async function getCars(
 
   const cars = response.data;
   const totalCount = Number(response.headers["x-total-count"]);
+
   const formatCars = cars.map((car) => {
     const price = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -46,12 +48,17 @@ export async function getCars(
 export function useCars(
   page: number,
   limit = 10,
+  filters = {} as IFilters,
   options?: UseQueryOptions
-): UseQueryResult<GetResponse, unknown> {
-  const brands = useQuery(["cars", page, limit], () => getCars(page, limit), {
-    staleTime: 1000 * 60 * 10, // 10 minutes
-    ...(options as any),
-  }) as UseQueryResult<GetResponse, unknown>;
+): UseQueryResult<GetCarsResponse, unknown> {
+  const brands = useQuery(
+    ["cars", page, limit, filters],
+    () => getCars(page, limit, filters),
+    {
+      staleTime: 1000 * 60 * 10, // 10 minutes
+      ...(options as any),
+    }
+  ) as UseQueryResult<GetCarsResponse, unknown>;
 
   return brands;
 }
