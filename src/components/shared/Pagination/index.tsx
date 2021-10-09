@@ -43,7 +43,7 @@ export function Pagination({
 
   return (
     <Stack
-      direction={["column", "row"]}
+      direction={["column", "column", "row"]}
       spacing="6"
       mt="8"
       justify="space-between"

@@ -59,12 +59,12 @@ export function CarCard({ car }: ICarCardProps): JSX.Element {
         >
           {car.price}
         </Text>
-        <SimpleGrid columns={[3, 3, 3, 3, 1]}>
+        <SimpleGrid columns={[2, 3, 3, 3, 1]}>
           <HStack>
             <CalendarIcon boxSize={3} />
             <Text>{car.year}</Text>
           </HStack>
-          <HStack>
+          <HStack display={["none", "flex"]}>
             <Icon as={FaGasPump} boxSize={3} />
             <Text>{car.fuel}</Text>
           </HStack>
