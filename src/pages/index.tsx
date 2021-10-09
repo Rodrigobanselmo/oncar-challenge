@@ -1,8 +1,12 @@
-import { Flex, Select } from "@chakra-ui/react";
+import { Flex, HStack, Select } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Header } from "../components/shared/Header";
+import { useBrandModel } from "../services/hooks/useBrandModel";
+import { Model } from "../@types/models";
+import { CarFilter } from "../components/shared/Filters/CarFilter";
 
 const Home: NextPage = () => {
   return (
@@ -14,15 +18,9 @@ const Home: NextPage = () => {
           content="financiamento de carros e simulação de crédito"
         />
       </Head>
-      <main>
-        <Flex>
-          <Select placeholder="Select option">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-          </Select>
-        </Flex>
-      </main>
+      <Flex as="main" justify="center" px={["3rem", null, "4rem"]}>
+        <CarFilter />
+      </Flex>
       <footer></footer>
     </div>
   );
