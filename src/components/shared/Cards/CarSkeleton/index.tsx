@@ -17,7 +17,7 @@ export function CarSkeleton(): JSX.Element {
   return (
     <Grid
       gap={{ md: 5 }}
-      bg={useColorModeValue("secondary.600", "secondary.600")}
+      bg={useColorModeValue("gray.100", "gray.800")}
       templateColumns={{ md: "3fr 5fr" }}
       borderRadius={20}
       p={4}

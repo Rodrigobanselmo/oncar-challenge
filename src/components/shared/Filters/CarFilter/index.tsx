@@ -1,9 +1,12 @@
-import { Grid, GridItem, Select } from "@chakra-ui/react";
+import { Grid, GridItem, Select, useColorModeValue } from "@chakra-ui/react";
 import { ChangeEvent, useMemo, useState } from "react";
 
-import { Model } from "../../../../@types/models";
 import { PRICES } from "../../../../constants/prices.constants";
 import { useBrandModel } from "../../../../services/hooks/useBrandModel";
+import styled from "@emotion/styled";
+import { SelectChakra } from "../../Forms/Select";
+
+const SelectStyled = styled(Select)``;
 
 export function CarFilter(): JSX.Element {
   const { data, isLoading } = useBrandModel();
@@ -54,10 +57,9 @@ export function CarFilter(): JSX.Element {
       align="center"
     >
       <GridItem colSpan={[2, null, 1, 1]}>
-        <Select
+        <SelectChakra
           value={selectedBrand}
           onChange={handleSelectBrand}
-          minW={"10rem"}
           placeholder={isLoading ? "carregando..." : "Marca"}
         >
           {brands.map((brand) => (
@@ -65,12 +67,11 @@ export function CarFilter(): JSX.Element {
               {brand.name}
             </option>
           ))}
-        </Select>
+        </SelectChakra>
       </GridItem>
       <GridItem colSpan={[2, null, 1, 1]}>
-        <Select
+        <SelectChakra
           value={selectedModel}
-          minW={"10rem"}
           onChange={handleSelectModel}
           placeholder={isLoading ? "carregando..." : "Modelo"}
         >
@@ -79,12 +80,11 @@ export function CarFilter(): JSX.Element {
               {model.name}
             </option>
           ))}
-        </Select>
+        </SelectChakra>
       </GridItem>
       <GridItem colSpan={1}>
-        <Select
+        <SelectChakra
           value={selectedLowerPrice}
-          minW={"10rem"}
           onChange={handleSelectPriceL}
           placeholder={isLoading ? "carregando..." : "De:"}
         >
@@ -93,12 +93,11 @@ export function CarFilter(): JSX.Element {
               {price}.000 R$
             </option>
           ))}
-        </Select>
+        </SelectChakra>
       </GridItem>
       <GridItem colSpan={1}>
-        <Select
+        <SelectChakra
           value={selectedHigherPrice}
-          minW={"10rem"}
           onChange={handleSelectPriceH}
           placeholder={isLoading ? "carregando..." : "Áte:"}
         >
@@ -107,7 +106,7 @@ export function CarFilter(): JSX.Element {
               {price}.000 R$
             </option>
           ))}
-        </Select>
+        </SelectChakra>
       </GridItem>
     </Grid>
   );
