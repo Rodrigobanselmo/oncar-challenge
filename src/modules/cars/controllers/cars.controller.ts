@@ -42,7 +42,7 @@ export class CarsController {
       includesQueryDto,
     );
     return resp
-      .header('totalCount', totalCars.toString())
+      .header('x-total-count', totalCars.toString())
       .json(allCars.map((car) => new CarEntity(car)));
   }
 

@@ -28,7 +28,7 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost);
 
   app.useGlobalFilters(new PrismaDbExceptionFilter(httpAdapter));
-  app.enableCors();
+  app.enableCors({ exposedHeaders: 'x-total-count' });
   await app.listen(process.env.PORT || 3333);
 }
 bootstrap();
