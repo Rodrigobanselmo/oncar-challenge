@@ -44,14 +44,13 @@ export function CarFilter(): JSX.Element {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const models = useMemo(() => onFilterModels(), [selectedBrand]);
+  const models = useMemo(() => onFilterModels(), [selectedBrand, data]);
   const brands = (data && data?.brands) || [];
 
   return (
     <Grid
       templateColumns={["repeat(2, 1fr)", null, null, "repeat(4, 1fr)"]}
       gap={["20px", "30px", "40px"]}
-      maxW={"container.xl"}
       align="center"
     >
       <GridItem colSpan={[2, null, 1, 1]}>
