@@ -25,7 +25,7 @@ export async function getBrands(): Promise<GetResponse> {
 export function useBrandModel(
   options?: UseQueryOptions
 ): UseQueryResult<GetResponse, unknown> {
-  const brands = useQuery("brands", () => getBrands(), {
+  const brands = useQuery("brand-model", () => getBrands(), {
     staleTime: 1000 * 60 * 10, // 10 minutes
     ...(options as any),
   }) as UseQueryResult<GetResponse, unknown>;
