@@ -1,9 +1,9 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 
-const config = {
+const config: ThemeConfig = {
   initialColorMode: "light",
-  useSystemColorMode: true,
+  useSystemColorMode: false,
 };
 
 export const themeModel = {
@@ -45,7 +45,7 @@ export const themeModel = {
     global: (props: StyleFunctionProps) => ({
       body: {
         color: mode("gray.800", "whiteAlpha.900")(props),
-        bg: mode("gray.50", "gray.700")(props),
+        bg: mode("gray.50", "gray.900")(props),
         fontFamily:
           "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
       },
