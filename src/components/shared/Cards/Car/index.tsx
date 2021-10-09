@@ -51,7 +51,12 @@ export function CarCard({ car }: ICarCardProps): JSX.Element {
         <Text fontSize={"sm"} mt={2}>
           À vista
         </Text>
-        <Text fontSize={"2xl"} mb={[3, 4, 12, 12, 3]}>
+        <Text
+          color={"main.700"}
+          fontWeight={"bold"}
+          fontSize={"2xl"}
+          mb={[3, 4, 12, 12, 3]}
+        >
           {car.price}
         </Text>
         <SimpleGrid columns={[3, 3, 3, 3, 1]}>
