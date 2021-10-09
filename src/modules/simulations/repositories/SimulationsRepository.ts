@@ -30,12 +30,12 @@ export class SimulationsRepository implements ISimulationsRepository {
     paginationQuery: PaginationQueryDto,
     filterQuerySimulationDto: FilterQuerySimulationDto,
   ): Promise<Simulations[]> {
-    const { limit = 10, offset = 0 } = paginationQuery;
+    const { limit = 10, page = 1 } = paginationQuery;
     const { lowerThanDate, greaterThanDate, greaterThanScore, lowerThanScore } =
       filterQuerySimulationDto;
 
     return this.prisma.simulations.findMany({
-      skip: offset,
+      skip: (page - 1) * limit,
       take: limit,
       where: {
         score: {

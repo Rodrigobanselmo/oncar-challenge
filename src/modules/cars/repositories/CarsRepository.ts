@@ -110,13 +110,13 @@ export class CarsRepository implements ICarsRepository {
     filterQueryDto: FilterQueryDto,
     includesQueryDto: IncludesQueryDto,
   ): Promise<[Car[], number]> {
-    const { limit = 10, offset = 0 } = paginationQuery;
+    const { limit = 10, page = 1 } = paginationQuery;
     const { brandName, modelName, maxPrice, minPrice } = filterQueryDto;
     const { brand, model } = includesQueryDto;
 
     return this.prisma.$transaction([
       this.prisma.car.findMany({
-        skip: offset,
+        skip: (page - 1) * limit,
         take: limit,
         orderBy: {
           created_at: 'desc',

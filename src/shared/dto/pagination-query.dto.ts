@@ -9,5 +9,5 @@ export class PaginationQueryDto {
   @IsOptional()
   @IsInt()
   @Max(100000000)
-  offset?: number = 0;
+  page?: number = 1;
 }
