@@ -3,5 +3,5 @@ export enum FuelOptions {
   ETHNOL = "Etanol",
   FLEX = "Flex",
   GAS = "Gás",
-  GASOLINE = "Gasoline",
+  GASOLINE = "Gasolina",
 }
