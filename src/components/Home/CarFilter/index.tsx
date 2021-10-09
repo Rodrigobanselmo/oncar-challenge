@@ -66,7 +66,7 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
   const brands = (data && data?.brands) || [];
 
   return (
-    <VStack spacing={4} align="end">
+    <VStack spacing={6} align="center">
       <Grid
         templateColumns={["repeat(2, 1fr)", null, null, "repeat(4, 1fr)"]}
         gap={["20px", "30px", "40px"]}
@@ -130,6 +130,7 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
         onClick={handleSearchCars}
         isLoading={isLoading}
         size={"md"}
+        w={["100%", "100%", 400]}
         variant={"main"}
       >
         BUSCAR

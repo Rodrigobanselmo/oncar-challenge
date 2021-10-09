@@ -1,10 +1,11 @@
-import { Box, useBreakpointValue } from "@chakra-ui/react";
+import { Heading, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import { animateScroll as scroll } from "react-scroll";
 
 import { Pagination } from "../../components/shared/Pagination";
 import { useCars } from "../../services/hooks/Queries/useCars";
 import { IFilters } from "../../services/hooks/Queries/useCars/@interfaces";
+import { MainContainer } from "../shared/Container/Main";
 import { CarFilter } from "./CarFilter";
 import { CarTable } from "./CarTable";
 
@@ -24,14 +25,10 @@ export function MainHome(): JSX.Element {
   };
 
   return (
-    <Box
-      as="main"
-      maxW={"container.xl"}
-      m="auto"
-      mb={20}
-      px={["3rem", null, "4rem"]}
-      pt={20}
-    >
+    <MainContainer>
+      <Heading textAlign="center" mb={6}>
+        BUSQUE AGORA SEU CARRO
+      </Heading>
       <CarFilter setFilters={setFilters} />
 
       <CarTable data={data} isLoading={isLoading} />
@@ -43,6 +40,6 @@ export function MainHome(): JSX.Element {
         registersPerPage={10}
         siblingsCount={3}
       />
-    </Box>
+    </MainContainer>
   );
 }
