@@ -46,10 +46,10 @@ export class CreateSimulationAddressDto
   @MaxLength(30)
   city: string;
 
-  @ApiProperty({ description: 'address estate.' })
+  @ApiProperty({ description: 'address state.' })
   @Transform(StringUppercaseTransform, { toClassOnly: true })
   @IsString()
   @Length(2, 2)
   @IsUppercase()
-  estate: string;
+  state: string;
 }

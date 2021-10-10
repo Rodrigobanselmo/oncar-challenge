@@ -66,7 +66,7 @@ model Address {
   complement String
   neighborhood String
   city String
-  estate String
+  state String
   simulationId Int
   simulation Simulations @relation(fields: [simulationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 

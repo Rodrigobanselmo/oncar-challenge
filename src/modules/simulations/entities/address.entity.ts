@@ -25,7 +25,7 @@ export class AddressEntity implements Address {
   city: string;
 
   @ApiProperty()
-  estate: string;
+  state: string;
 
   @ApiProperty()
   simulationId: number;
