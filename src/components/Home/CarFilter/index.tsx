@@ -75,6 +75,7 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
       >
         <GridItem colSpan={[2, null, 1, 1]}>
           <SelectChakra
+            label="Marca:"
             value={selectedBrand}
             onChange={handleSelectBrand}
             placeholder={isLoading ? "carregando..." : "Marca"}
@@ -88,6 +89,7 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
         </GridItem>
         <GridItem colSpan={[2, null, 1, 1]}>
           <SelectChakra
+            label="Modelo:"
             value={selectedModel}
             onChange={handleSelectModel}
             placeholder={isLoading ? "carregando..." : "Modelo"}
@@ -101,6 +103,7 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
         </GridItem>
         <GridItem colSpan={1}>
           <SelectChakra
+            label="Preço de:"
             value={selectedLowerPrice}
             onChange={handleSelectPriceL}
             placeholder={isLoading ? "carregando..." : "De:"}
@@ -114,6 +117,7 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
         </GridItem>
         <GridItem colSpan={1}>
           <SelectChakra
+            label="Preço áte:"
             value={selectedHigherPrice}
             onChange={handleSelectPriceH}
             placeholder={isLoading ? "carregando..." : "Áte:"}

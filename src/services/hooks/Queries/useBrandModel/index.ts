@@ -2,7 +2,7 @@ import { Brand } from "../../../../@types/brands";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
 import { GetResponse, BrandsAPI, ModelsAPI } from "./@interfaces";
 import api from "../../../api";
-import { sortAsc } from "../../../../utils/sort/asc.sort";
+import { sortAsc } from "../../../../utils/sorts/asc.sort";
 
 export async function getBrands(): Promise<GetResponse> {
   const responseBrand = await api.get<BrandsAPI>("brand");
