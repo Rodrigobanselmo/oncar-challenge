@@ -21,6 +21,6 @@ export const addressSchema = {
     complement: Yup.string(),
     neighborhood: Yup.string(),
     city: Yup.string(),
-    estate: Yup.string(),
+    state: Yup.string(),
   }),
 };

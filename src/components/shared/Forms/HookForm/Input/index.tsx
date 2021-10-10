@@ -10,19 +10,21 @@ import {
 import { IInputProps } from "./@interfaces";
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
-  { name, label, error = null, isRequired, mask, ...rest },
+  { name, label, error = null, onChange, isRequired, mask, ...rest },
   ref
 ): JSX.Element => {
   const alertColor = useColorModeValue("red.500", "red.300");
 
-  const onAppliesMask = useCallback(
+  const onChangeFunc = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange && onChange(e);
       mask && mask(e);
     },
-    [mask]
+    [mask, onChange]
   );
 
-  const { ...maskOnChange } = mask ? { onChange: onAppliesMask } : {};
+  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const handleOnChange = mask || onChange ? { onChange: onChangeFunc } : {};
 
   return (
     <FormControl isInvalid={!!error}>
@@ -64,8 +66,8 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
         }}
         size="lg"
         ref={ref}
+        {...handleOnChange}
         {...rest}
-        {...{ ...maskOnChange }}
       />
 
       {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}

@@ -1,4 +1,10 @@
-import { Box, Button, BoxProps } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  BoxProps,
+  useDisclosure,
+  Collapse,
+} from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
 
 import { cepMask } from "../../../../utils/masks/cep.mask";
@@ -8,11 +14,12 @@ import { InputForm } from "../../../shared/Forms/HookForm/Input";
 import { ChakraRadioGroup } from "../../../shared/Forms/HookForm/Ratio";
 import { SimulationFormData } from "../@interfaces";
 import faker from "faker/locale/pt_BR";
+import { useEffect } from "react";
 
 const fakeData = {
   name: faker.name.findName(),
   email: faker.internet.email(),
-  cpf: "401.951.858.03",
+  cpf: "401.951.858-03",
   phone: "(12) 99681-8163",
   birthDate: "26/08/1998",
   income: "R$ 10.000",
@@ -25,12 +32,22 @@ const fakeData = {
     complement: "",
     neighborhood: "Jardim Aquarius",
     city: "São José dos Campos",
-    estate: "SP",
+    state: "SP",
   },
 };
 
 export function Autofill(props: BoxProps): JSX.Element {
   const { setValue } = useFormContext();
+  const { isOpen, onToggle } = useDisclosure();
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      onToggle();
+    }, 1000);
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, []);
 
   function handleSetValues() {
     Object.entries(fakeData).map(([key, value]) => {
@@ -45,9 +62,18 @@ export function Autofill(props: BoxProps): JSX.Element {
 
   return (
     <Box {...props}>
-      <Button variant="main" onClick={handleSetValues}>
-        Preenchimento automatico
-      </Button>
+      <Collapse
+        transition={{
+          enter: { duration: 0.51 },
+          exit: { duration: 2 },
+        }}
+        in={isOpen}
+        animateOpacity
+      >
+        <Button variant="main" onClick={handleSetValues}>
+          Preenchimento automatico
+        </Button>
+      </Collapse>
     </Box>
   );
 }

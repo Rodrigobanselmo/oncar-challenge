@@ -1,12 +1,18 @@
 import { Car } from "../../../../../@types/cars";
 
-export interface CarAPI extends Omit<Car, "price" | "fuel"> {
-  price: number;
-  fuel: "DIESEL" | "ETHNOL" | "FLEX" | "GAS" | "GASOLINE";
+export interface CepAPI {
+  cep?: string;
+  street?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
 }
-export type CarsAPI = CarAPI[];
 
-export interface GetResponse {
-  totalCount: number;
-  cars: Car[];
+export interface GetCEPResponse {
+  number: number;
+  cep: string;
+  street: string;
+  neighborhood: string;
+  city: string;
+  state: string;
 }

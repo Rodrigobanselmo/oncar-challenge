@@ -14,6 +14,6 @@ export type SimulationFormData = {
     complement: string;
     neighborhood: string;
     city: string;
-    estate: string;
+    state: string;
   };
 };

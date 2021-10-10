@@ -19,6 +19,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           placeholder="Digite aqui"
           isRequired={true}
           mask={cepMask.onChange}
+          // onChange={}
           error={errors.cep}
           maxW={250}
           {...register("address.cep")}
@@ -74,9 +75,9 @@ export function AddressInputs(props: GridProps): JSX.Element {
         <InputForm
           label={"Estado"}
           isDisabled={true}
-          error={errors.estate}
+          error={errors.state}
           placeholder="Digite aqui"
-          {...register("address.estate")}
+          {...register("address.state")}
         />
       </GridItem>
     </Grid>
