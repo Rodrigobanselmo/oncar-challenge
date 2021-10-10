@@ -40,6 +40,7 @@ export const dateMask = masker({
       return value;
     }
     const date = dateFns.parse(value, dateFormatClient, new Date());
-    return dateFns.format(date, dateFormatApi);
+    return date;
+    // return dateFns.format(date, dateFormatApi);
   },
 });

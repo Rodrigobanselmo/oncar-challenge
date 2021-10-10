@@ -14,7 +14,7 @@ export const aboutUserSchema = {
       }
       return false;
     }),
-  birthDate: Yup.string()
+  birthDate: Yup.mixed()
     .required("Data de nascimento obrigatório")
     .transform(dateMask.transform)
     .test("validateAge", "Você precisa ter no mínimo 18 anos", (value) => {
@@ -28,7 +28,6 @@ export const aboutUserSchema = {
     "Número te telefone inválido",
     (value) => {
       if (!value) return true;
-      console.log(value, value.length, isValidPhone(value));
       if (value.length > 14) {
         return isValidPhone(value);
       }

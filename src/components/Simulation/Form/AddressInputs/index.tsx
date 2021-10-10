@@ -21,7 +21,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           mask={cepMask.onChange}
           error={errors.cep}
           maxW={250}
-          {...register("cep")}
+          {...register("address.cep")}
         />
       </GridItem>
       <GridItem colSpan={2}>
@@ -30,16 +30,17 @@ export function AddressInputs(props: GridProps): JSX.Element {
           isDisabled={true}
           error={errors.street}
           placeholder="Digite aqui"
-          {...register("street")}
+          {...register("address.street")}
         />
       </GridItem>
       <GridItem colSpan={1}>
         <InputForm
           label={"Número"}
           error={errors.number}
+          isRequired={true}
           placeholder="Digite aqui"
           mask={numberMask.onChange}
-          {...register("number")}
+          {...register("address.number")}
         />
       </GridItem>
       <GridItem colSpan={1}>
@@ -47,7 +48,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           label={"Complemento"}
           error={errors.complement}
           placeholder="Digite aqui"
-          {...register("complement")}
+          {...register("address.complement")}
         />
       </GridItem>
       <GridItem colSpan={2}>
@@ -57,7 +58,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           isDisabled={true}
           error={errors.neighborhood}
           placeholder="Digite aqui"
-          {...register("neighborhood")}
+          {...register("address.neighborhood")}
         />
       </GridItem>
       <GridItem colSpan={4}>
@@ -66,7 +67,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           isDisabled={true}
           error={errors.city}
           placeholder="Digite aqui"
-          {...register("city")}
+          {...register("address.city")}
         />
       </GridItem>
       <GridItem colSpan={2}>
@@ -75,7 +76,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           isDisabled={true}
           error={errors.estate}
           placeholder="Digite aqui"
-          {...register("estate")}
+          {...register("address.estate")}
         />
       </GridItem>
     </Grid>

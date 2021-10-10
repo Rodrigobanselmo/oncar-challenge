@@ -1,4 +1,11 @@
-import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Collapse,
+  useDisclosure,
+  Flex,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useCallback } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -7,17 +14,14 @@ import * as Yup from "yup";
 import { MainContainer } from "../shared/Container/Main";
 import { Divider } from "../shared/Forms/Divider";
 import { ChakraRadioGroup } from "../shared/Forms/HookForm/Ratio";
+import { SimulationFormData } from "./Form/@interfaces";
 import { aboutUserSchema } from "./Form/@schemas/aboutUser.schema";
 import { addressSchema } from "./Form/@schemas/address.schema";
 import { incomeSchema } from "./Form/@schemas/income.schema";
 import { AboutUserInputs } from "./Form/AboutUserInputs";
 import { AddressInputs } from "./Form/AddressInputs";
 import { MoreInfoInputs } from "./Form/MoreInfoInputs";
-
-type SimulationFormData = {
-  name: string;
-  cpf: string;
-};
+import { Autofill } from "./Form/Autofill";
 
 export function MainSimulation(): JSX.Element {
   // const [page, setPage] = React.useState(1);
@@ -45,13 +49,14 @@ export function MainSimulation(): JSX.Element {
 
   const {
     handleSubmit,
-    control,
     formState: { errors, isSubmitting },
   } = form;
 
   const handleSignIn: SubmitHandler<SimulationFormData> = (values) => {
     console.log(values);
   };
+
+  const { isOpen: isOpenScore, onToggle: onToggleScore } = useDisclosure();
 
   return (
     <FormProvider {...form}>
@@ -60,15 +65,17 @@ export function MainSimulation(): JSX.Element {
           QUERO AVALIAR MEU CRÉDITO
         </Heading>
         <Text as="h2" fontSize="xl" textAlign="center" mb={6}>
-          Aqui na Oncar, facilitamos a sua aprovação, mesmo com restrição no
+          Aqui na OnCar facilitamos a sua aprovação, mesmo com restrição no
           nome.
         </Text>
+        <Autofill mb={10} mt={10} />
         <Flex
           as="form"
           w="100%"
           flexDir="column"
           onSubmit={handleSubmit(handleSignIn)}
         >
+          {/* <Collapse in={}> */}
           <AboutUserInputs />
           <Divider mx={100} />
           <AddressInputs />
@@ -86,6 +93,7 @@ export function MainSimulation(): JSX.Element {
           >
             Avaliar Crédito
           </Button>
+          {/* </Collapse> */}
         </Flex>
       </MainContainer>
     </FormProvider>

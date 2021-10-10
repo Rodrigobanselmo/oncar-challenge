@@ -64,7 +64,7 @@ export function AboutUserInputs(props: GridProps): JSX.Element {
           label={"E-mail"}
           error={errors.email}
           placeholder="Digite seu e-mail aqui"
-          {...register("e-mail")}
+          {...register("email")}
         />
       </GridItem>
     </Grid>

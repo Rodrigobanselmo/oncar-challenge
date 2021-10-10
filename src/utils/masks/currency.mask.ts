@@ -15,7 +15,6 @@ export const currencyMask = masker({
     },
   } as IMask.AnyMaskedOptions | IMask.AnyMasked,
   transform: (value: string) => {
-    console.log(`value`, value);
     // return Number(value.replace(/[ˆ\D ]/g, "")) || 0;
     return Number(currencyMask.unmask(value)) || null;
   },

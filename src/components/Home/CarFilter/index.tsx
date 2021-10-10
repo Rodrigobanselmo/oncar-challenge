@@ -50,7 +50,6 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
 
   function handleSelectPriceH(event: ChangeEvent<HTMLSelectElement>) {
     const price = event.target.value;
-    console.log(`price`, selectedLowerPrice, price);
     if (Number(selectedLowerPrice) >= Number(price)) setSelectedLowerPrice("");
     setSelectedHigherPrice(price);
   }

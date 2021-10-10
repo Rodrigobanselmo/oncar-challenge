@@ -38,12 +38,14 @@ export const ChakraRadioGroup: FC<IRadioGroupProps> = ({
 
   return (
     <FormControl isRequired={isRequired} isInvalid={!!errors[name]} mb={6}>
-      <FormLabel>{label}</FormLabel>
+      <FormLabel htmlFor={`radio_${name}`} id={`radio_label_${name}`}>
+        {label}
+      </FormLabel>
       <HStack {...group} {...rest}>
         {options.map((value) => {
           const radio = getRadioProps({ value });
           return (
-            <Radio key={value} {...radio} {...ratioProps}>
+            <Radio id={`radio_${name}`} key={value} {...radio} {...ratioProps}>
               {value}
             </Radio>
           );
