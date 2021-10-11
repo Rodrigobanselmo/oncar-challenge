@@ -13,7 +13,6 @@ const Home: NextPage = () => {
         <meta name="description" content="financiamento de carros" />
       </Head>
       <MainHome />
-      <footer></footer>
     </PageContainer>
   );
 };
