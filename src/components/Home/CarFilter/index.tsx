@@ -1,4 +1,4 @@
-import { Button, Grid, GridItem, VStack } from "@chakra-ui/react";
+import { Button, Grid, GridItem, HStack, VStack } from "@chakra-ui/react";
 import React, { ChangeEvent, useMemo, useState, MouseEvent } from "react";
 
 import { PRICES } from "../../../constants/prices.constants";
@@ -8,9 +8,10 @@ import { SelectChakra } from "../../shared/Forms/Select";
 
 interface IProps {
   setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
+  children: React.ReactNode;
 }
 
-export function CarFilter({ setFilters }: IProps): JSX.Element {
+export function CarFilter({ setFilters, children }: IProps): JSX.Element {
   const { data, isLoading } = useBrandModel();
 
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -129,15 +130,18 @@ export function CarFilter({ setFilters }: IProps): JSX.Element {
           </SelectChakra>
         </GridItem>
       </Grid>
-      <Button
-        onClick={handleSearchCars}
-        isLoading={isLoading}
-        size={"md"}
-        w={["100%", "100%", 400]}
-        variant={"main"}
-      >
-        BUSCAR
-      </Button>
+      <HStack>
+        <Button
+          onClick={handleSearchCars}
+          isLoading={isLoading}
+          size={"md"}
+          w={["100%", "100%", 400]}
+          variant={"main"}
+        >
+          BUSCAR
+        </Button>
+        {children}
+      </HStack>
     </VStack>
   );
 }
