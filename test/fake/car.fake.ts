@@ -26,7 +26,7 @@ export class FakerCar implements CreateCarDto {
     }
   }
 
-  plate = faker.datatype.string();
+  plate = faker.datatype.string(7);
   color = faker.commerce.color();
   price = faker.datatype.number(500) * 1000;
   kilometers = faker.datatype.number(1000000);
