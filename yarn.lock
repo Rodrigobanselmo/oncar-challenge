@@ -504,7 +504,7 @@
     "@chakra-ui/react-utils" "1.1.2"
     "@chakra-ui/utils" "1.8.2"
 
-"@chakra-ui/spinner@1.1.12":
+"@chakra-ui/spinner@1.1.12", "@chakra-ui/spinner@^1.1.12":
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/@chakra-ui/spinner/-/spinner-1.1.12.tgz#1833cb46f48e6d002c2820724e3a1a580e6ebc92"
   integrity sha512-cwchUCrZ2FEPSQilbCnJSFXmyDJC/9u29oitSNRVPF0DDvHUPZX1yG/DXZ0ZsWqodBw16/FZuRe2VRKOCGm0Iw==

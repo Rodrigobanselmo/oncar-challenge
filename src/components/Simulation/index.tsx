@@ -1,101 +1,57 @@
-import {
-  Button,
-  Collapse,
-  useDisclosure,
-  Flex,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useCallback } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import * as Yup from "yup";
+import { Heading, Text, useDisclosure, Collapse } from "@chakra-ui/react";
+import React, { useCallback, useState } from "react";
+import { useSetSimulation } from "../../services/hooks/Mutations/useSimulation";
 
 import { MainContainer } from "../shared/Container/Main";
-import { Divider } from "../shared/Forms/Divider";
-import { ChakraRadioGroup } from "../shared/Forms/HookForm/Ratio";
-import { SimulationFormData } from "./Form/@interfaces";
-import { aboutUserSchema } from "./Form/@schemas/aboutUser.schema";
-import { addressSchema } from "./Form/@schemas/address.schema";
-import { incomeSchema } from "./Form/@schemas/income.schema";
-import { AboutUserInputs } from "./Form/AboutUserInputs";
-import { AddressInputs } from "./Form/AddressInputs";
-import { MoreInfoInputs } from "./Form/MoreInfoInputs";
-import { Autofill } from "./Form/Autofill";
+import { ScoreSection } from "./ScoreSection";
+import { UserForm } from "./UserForm";
+import { ValueForm } from "./ValueForm";
 
 export function MainSimulation(): JSX.Element {
-  // const [page, setPage] = React.useState(1);
-  // const limit = useBreakpointValue({ sm: 5, md: 6, xl: 10 });
-  // const { data, isLoading } = useCars(page, limit, filters);
-
-  // const handleChangePage = (page: number) => {
-  //   scroll.scrollTo(0, {
-  //     duration: 800,
-  //     smooth: true,
-  //     containerId: "home_page",
-  //   });
-  //   setPage(page);
-  // };
-
-  const form = useForm({
-    resolver: yupResolver(
-      Yup.object().shape({
-        ...aboutUserSchema,
-        ...addressSchema,
-        ...incomeSchema,
-      })
-    ),
+  const [score, setScore] = useState<{ value: number; message: string }>({
+    value: 0,
+    message: "",
   });
 
+  const { isOpen: isOpenScore, onOpen: onOpenScore } = useDisclosure({
+    defaultIsOpen: false,
+  });
   const {
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = form;
-
-  const handleSignIn: SubmitHandler<SimulationFormData> = (values) => {
-    console.log(values);
-  };
-
-  const { isOpen: isOpenScore, onToggle: onToggleScore } = useDisclosure();
+    isOpen: isOpenForm,
+    onClose: onCloseForm,
+    onOpen: onOpenForm,
+  } = useDisclosure({ defaultIsOpen: false });
 
   return (
-    <FormProvider {...form}>
-      <MainContainer>
-        <Heading textAlign="center" mb={1}>
-          QUERO AVALIAR MEU CRÉDITO
-        </Heading>
-        <Text as="h2" fontSize="xl" textAlign="center" mb={6}>
-          Aqui na OnCar facilitamos a sua aprovação, mesmo com restrição no
-          nome.
-        </Text>
-        <Autofill mb={10} mt={10} />
-        <Flex
-          as="form"
-          w="100%"
-          flexDir="column"
-          onSubmit={handleSubmit(handleSignIn)}
-        >
-          {/* <Collapse in={}> */}
-          <AboutUserInputs />
-          <Divider mx={100} />
-          <AddressInputs />
-          <Divider mx={100} />
-          <MoreInfoInputs />
-          <Button
-            type="submit"
-            mt={10}
-            ml="auto"
-            minW={200}
-            size="lg"
-            colorScheme={"red"}
-            variant={"solid"}
-            isLoading={isSubmitting}
-          >
-            Avaliar Crédito
-          </Button>
-          {/* </Collapse> */}
-        </Flex>
-      </MainContainer>
-    </FormProvider>
+    <MainContainer>
+      <Heading textAlign="center" mb={1}>
+        QUERO AVALIAR MEU CRÉDITO
+      </Heading>
+      <Text as="h2" fontSize="xl" textAlign="center" mb={6}>
+        Aqui na OnCar facilitamos a sua aprovação, mesmo com restrição no nome.
+      </Text>
+      <ValueForm onOpenForm={onOpenForm} onCloseForm={onCloseForm} />
+      <Collapse
+        transition={{
+          enter: { duration: 4 },
+          exit: { duration: 4 },
+        }}
+        in={isOpenScore}
+        animateOpacity={true}
+      >
+        <ScoreSection score={score} />
+      </Collapse>
+      <Collapse
+        transition={{
+          enter: { duration: 1 },
+          exit: { duration: 1 },
+        }}
+        in={isOpenForm}
+        animateOpacity={true}
+        unmountOnExit={true}
+      >
+        <UserForm setScore={setScore} onOpenScore={onOpenScore} />
+      </Collapse>
+    </MainContainer>
   );
 }

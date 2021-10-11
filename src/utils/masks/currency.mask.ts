@@ -1,4 +1,3 @@
-import * as dateFns from "date-fns";
 import IMask from "imask";
 import { masker } from "./index";
 

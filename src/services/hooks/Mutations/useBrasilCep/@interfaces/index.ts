@@ -9,10 +9,9 @@ export interface CepAPI {
 }
 
 export interface GetCEPResponse {
-  number: number;
-  cep: string;
-  street: string;
-  neighborhood: string;
-  city: string;
-  state: string;
+  cep?: string;
+  street?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
 }

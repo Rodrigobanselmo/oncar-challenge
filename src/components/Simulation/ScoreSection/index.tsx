@@ -1,8 +1,14 @@
 import { BoxProps, Box, useColorModeValue } from "@chakra-ui/react";
+import { useMemo } from "react";
 
-interface IProps extends BoxProps {}
+interface IProps extends BoxProps {
+  score: {
+    value: number;
+    message: string;
+  };
+}
 
-export function ScoreSection({ ...rest }: IProps): JSX.Element {
+export function ScoreSection({ score, ...rest }: IProps): JSX.Element {
   return (
     <Box
       border="1px solid"
@@ -10,7 +16,8 @@ export function ScoreSection({ ...rest }: IProps): JSX.Element {
       my={10}
       {...rest}
     >
-      ok
+      {score.value}
+      {score.message}
     </Box>
   );
 }

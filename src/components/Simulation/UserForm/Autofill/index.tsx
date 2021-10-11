@@ -4,6 +4,7 @@ import {
   BoxProps,
   useDisclosure,
   Collapse,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
 
@@ -28,7 +29,7 @@ const fakeData = {
   address: {
     number: 1000,
     cep: "12246-000",
-    street: "Rua Alfredo Ignacio Nogueira Penido",
+    street: "Alfredo Ignacio Nogueira Penido",
     complement: "",
     neighborhood: "Jardim Aquarius",
     city: "São José dos Campos",
@@ -52,16 +53,34 @@ export function Autofill(props: BoxProps): JSX.Element {
   function handleSetValues() {
     Object.entries(fakeData).map(([key, value]) => {
       if (typeof value === "object") {
-        return Object.entries(value).map(([key2, value2]) => {
-          setValue(`${key}.${key2}`, value2);
+        const spinner = document.getElementById("spinner_cep");
+        if (spinner) spinner.style.display = "flex";
+        setTimeout(() => {
+          if (spinner) spinner.style.display = "none";
+          setValue(key, value, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }, 1000);
+        setValue("address.cep", "12246-000", {
+          shouldDirty: true,
+          shouldValidate: true,
         });
+        return;
       }
       setValue(key, value);
     });
   }
 
   return (
-    <Box {...props}>
+    <Box
+      border={"1px solid"}
+      borderColor={useColorModeValue("gray.300", "gray.900")}
+      p={2}
+      borderRadius={20}
+      bg={useColorModeValue("gray.100", "gray.800")}
+      {...props}
+    >
       <Collapse
         transition={{
           enter: { duration: 0.51 },
@@ -70,7 +89,7 @@ export function Autofill(props: BoxProps): JSX.Element {
         in={isOpen}
         animateOpacity
       >
-        <Button variant="main" onClick={handleSetValues}>
+        <Button w={"100%"} onClick={handleSetValues}>
           Preenchimento automatico
         </Button>
       </Collapse>

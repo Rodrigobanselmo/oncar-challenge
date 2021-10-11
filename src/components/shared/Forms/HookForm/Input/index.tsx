@@ -1,4 +1,4 @@
-import { forwardRef, ForwardRefRenderFunction, useCallback } from "react";
+/* eslint-disable react/no-children-prop */
 import {
   FormControl,
   FormErrorMessage,
@@ -6,25 +6,26 @@ import {
   Input as ChakraInput,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { forwardRef, ForwardRefRenderFunction, useCallback } from "react";
 
 import { IInputProps } from "./@interfaces";
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
-  { name, label, error = null, onChange, isRequired, mask, ...rest },
+  { name, label, error = null, onChangeValue, isRequired, mask, ...rest },
   ref
 ): JSX.Element => {
   const alertColor = useColorModeValue("red.500", "red.300");
 
   const onChangeFunc = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange && onChange(e);
+      onChangeValue && onChangeValue(e);
       mask && mask(e);
     },
-    [mask, onChange]
+    [mask, onChangeValue]
   );
 
-  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
-  const handleOnChange = mask || onChange ? { onChange: onChangeFunc } : {};
+  const handleOnChange =
+    mask || onChangeValue ? { onChange: onChangeFunc } : {};
 
   return (
     <FormControl isInvalid={!!error}>
@@ -45,7 +46,6 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
           {label}
         </FormLabel>
       )}
-
       <ChakraInput
         name={name}
         id={`input_${name}`}
@@ -66,10 +66,9 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
         }}
         size="lg"
         ref={ref}
-        {...handleOnChange}
         {...rest}
+        {...handleOnChange}
       />
-
       {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   );
