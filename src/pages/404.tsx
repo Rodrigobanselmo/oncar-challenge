@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       position: "top-right",
       onCloseComplete: () => router.back(),
     });
-  }, [toast, router]);
+  }, []);
 
   return <Center h="100vh">404 - Page Not Found</Center>;
 };

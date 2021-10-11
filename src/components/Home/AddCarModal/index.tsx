@@ -64,12 +64,12 @@ export function AddCarModal({}: IProps): JSX.Element {
         "brand-model",
         (oldData: GetModelBrandResponse | any) => ({
           brands: [
-            ...oldData.brands.filter((i: Brand) => i.name !== car.brandName),
             { name: car.brandName, created_at: new Date() },
+            ...oldData.brands.filter((i: Brand) => i.name !== car.brandName),
           ],
           models: [
-            ...oldData.models.filter((i: Model) => i.name !== car.modelName),
             { name: car.modelName, created_at: new Date() },
+            ...oldData.models.filter((i: Model) => i.name !== car.modelName),
           ],
         })
       );
