@@ -19,7 +19,7 @@ export function ValueInputs(props: GridProps): JSX.Element {
   } = useFormContext();
 
   return (
-    <Grid templateColumns="1fr 1fr" gap="8" {...props}>
+    <Grid templateColumns={["1fr", null, "1fr 1fr"]} gap="8" {...props}>
       <GridItem colSpan={1}>
         <InputForm
           label={"Valor do veículo:"}

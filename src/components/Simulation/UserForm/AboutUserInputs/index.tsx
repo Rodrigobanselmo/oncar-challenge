@@ -18,8 +18,12 @@ export function AboutUserInputs(props: GridProps): JSX.Element {
   } = useFormContext();
 
   return (
-    <Grid templateColumns="1fr 1fr 1fr" gap="8" {...props}>
-      <GridItem colSpan={2}>
+    <Grid
+      templateColumns={["1fr", "1fr 1fr", "1fr 1fr 1fr"]}
+      gap="8"
+      {...props}
+    >
+      <GridItem colSpan={[1, 2]}>
         <InputForm
           label={"Nome completo"}
           placeholder="Digite seu nome aqui"

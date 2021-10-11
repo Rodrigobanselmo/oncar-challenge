@@ -15,8 +15,12 @@ export function MoreInfoInputs(props: GridProps): JSX.Element {
   } = useFormContext();
 
   return (
-    <Grid templateColumns="1.2fr 1fr 1fr" gap="5" {...props}>
-      <GridItem>
+    <Grid
+      templateColumns={["1fr ", "1fr 1fr", null, "1.2fr 1fr 1fr"]}
+      gap="5"
+      {...props}
+    >
+      <GridItem colSpan={[1, 2, 1]}>
         <InputForm
           w={"80%"}
           label={"Renda mensal aproximada"}

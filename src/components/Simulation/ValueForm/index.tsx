@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, useBreakpointValue } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -26,16 +26,16 @@ export function ValueForm({ onOpenForm, onCloseForm }: IProps): JSX.Element {
     handleSubmit,
     formState: { isSubmitting },
   } = form;
+  const screenOffset = useBreakpointValue({ base: 620, md: 300 });
 
   const handleSignIn: SubmitHandler<ValueFormData> = (values) => {
     onOpenForm();
-    scroll.scrollTo(300, {
+    scroll.scrollTo(screenOffset || 300, {
       duration: 800,
       smooth: true,
       containerId: "simulation_page",
       delay: 700,
     });
-    console.log("q", values);
   };
 
   return (

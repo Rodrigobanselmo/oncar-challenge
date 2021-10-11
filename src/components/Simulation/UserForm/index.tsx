@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, useBreakpointValue } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useCallback } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -35,6 +35,7 @@ export function UserForm({ onOpenScore, setScore }: IProps): JSX.Element {
   });
 
   const setSimulation = useSetSimulation();
+  const screenOffset = useBreakpointValue({ base: 200, md: 0 });
 
   const {
     handleSubmit,
@@ -46,7 +47,7 @@ export function UserForm({ onOpenScore, setScore }: IProps): JSX.Element {
     if (simulation?.score) {
       setScore({ value: simulation.score, message: simulation.message });
       onOpenScore();
-      scroll.scrollTo(0, {
+      scroll.scrollTo(screenOffset || 0, {
         duration: 800,
         smooth: true,
         containerId: "simulation_page",

@@ -33,8 +33,8 @@ export function MainSimulation(): JSX.Element {
       <ValueForm onOpenForm={onOpenForm} onCloseForm={onCloseForm} />
       <Collapse
         transition={{
-          enter: { duration: 4 },
-          exit: { duration: 4 },
+          enter: { duration: 2 },
+          exit: { duration: 2 },
         }}
         in={isOpenScore}
         animateOpacity={true}

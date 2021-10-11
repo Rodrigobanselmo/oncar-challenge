@@ -32,8 +32,16 @@ export function AddressInputs(props: GridProps): JSX.Element {
   };
 
   return (
-    <Grid templateColumns="1fr 1fr 1fr 1fr 1fr 1fr" gap="8" {...props}>
-      <GridItem colSpan={6}>
+    <Grid
+      templateColumns={[
+        "1fr 1fr",
+        "1fr 1fr 1fr 1fr",
+        "1fr 1fr 1fr 1fr 1fr 1fr",
+      ]}
+      gap="8"
+      {...props}
+    >
+      <GridItem colSpan={[2, 4, 6]}>
         <Box maxW={250} position="relative">
           <InputForm
             label={"CEP"}
@@ -59,7 +67,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           />
         </Box>
       </GridItem>
-      <GridItem colSpan={2}>
+      <GridItem colSpan={[2, 4, 2]}>
         <InputForm
           label={"Logradouro"}
           isDisabled={true}
@@ -68,7 +76,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           {...register("address.street")}
         />
       </GridItem>
-      <GridItem colSpan={1}>
+      <GridItem colSpan={[1, 2, 1]}>
         <InputForm
           label={"Número"}
           error={errors.address && errors.address.number}
@@ -78,7 +86,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           {...register("address.number")}
         />
       </GridItem>
-      <GridItem colSpan={1}>
+      <GridItem colSpan={[1, 2, 1]}>
         <InputForm
           label={"Complemento"}
           error={errors.address && errors.address.complement}
@@ -86,7 +94,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           {...register("address.complement")}
         />
       </GridItem>
-      <GridItem colSpan={2}>
+      <GridItem colSpan={[2, 4, 2]}>
         <InputForm
           label={"Bairro"}
           isRequired={true}
@@ -96,7 +104,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           {...register("address.neighborhood")}
         />
       </GridItem>
-      <GridItem colSpan={4}>
+      <GridItem colSpan={[2, 2, 4]}>
         <InputForm
           label={"Cidade"}
           isDisabled={true}
@@ -105,7 +113,7 @@ export function AddressInputs(props: GridProps): JSX.Element {
           {...register("address.city")}
         />
       </GridItem>
-      <GridItem colSpan={2}>
+      <GridItem colSpan={[1, 2]}>
         <InputForm
           label={"Estado"}
           isDisabled={true}

@@ -12,9 +12,8 @@ import { CarTable } from "./CarTable";
 export function MainHome(): JSX.Element {
   const [page, setPage] = React.useState(1);
   const [filters, setFilters] = React.useState<IFilters>({});
-  const limit = useBreakpointValue({ sm: 5, md: 6, xl: 10 });
+  const limit = useBreakpointValue({ base: 5, sm: 5, md: 6, xl: 10 });
   const { data, isLoading } = useCars(page, limit, filters);
-
   const handleChangePage = (page: number) => {
     scroll.scrollTo(0, {
       duration: 800,
@@ -37,7 +36,7 @@ export function MainHome(): JSX.Element {
         onPageChange={handleChangePage}
         totalCountOfRegisters={Number(data?.totalCount) || 0}
         currentPage={page}
-        registersPerPage={10}
+        registersPerPage={limit}
         siblingsCount={3}
       />
     </MainContainer>
