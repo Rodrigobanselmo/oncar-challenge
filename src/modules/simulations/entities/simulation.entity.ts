@@ -29,6 +29,12 @@ export class SimulationEntity implements Simulations {
   haveHelp: boolean;
 
   @ApiProperty()
+  carValue: number;
+
+  @ApiProperty()
+  initPayment: number;
+
+  @ApiProperty()
   dirtyName: boolean;
 
   @ApiProperty()

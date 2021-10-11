@@ -12,6 +12,7 @@ import {
   Min,
   MinDate,
   ValidateNested,
+  IsOptional,
 } from 'class-validator';
 
 import { CpfFormatTransform } from '../../../shared/transformers/cpf-format.transform';
@@ -24,6 +25,7 @@ export class CreateSimulationDto
 {
   @ApiProperty({ description: 'person name.' })
   @IsString()
+  @IsOptional()
   name: string;
 
   @ApiProperty({ description: 'person cpf.' })
@@ -48,6 +50,7 @@ export class CreateSimulationDto
   @ApiProperty({ description: 'person email.' })
   @IsString()
   @IsEmail()
+  @IsOptional()
   email: string;
 
   @ApiProperty({ description: 'monthly income money.' })
@@ -55,6 +58,20 @@ export class CreateSimulationDto
   @Min(0)
   @Max(1000000000) // 10ˆ9
   income: number;
+
+  @ApiProperty({ description: 'car price.' })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  @Max(1000000000) // 10ˆ9
+  carValue: number;
+
+  @ApiProperty({ description: 'initial payment.' })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  @Max(1000000000) // 10ˆ9
+  initPayment: number;
 
   @ApiProperty({ description: 'if person will have help.' })
   @IsBoolean()

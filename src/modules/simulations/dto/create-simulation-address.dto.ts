@@ -7,6 +7,7 @@ import {
   Length,
   Max,
   MaxLength,
+  IsOptional,
 } from 'class-validator';
 
 import { StringUppercaseTransform } from '../../../shared/transformers/string-uppercase.transform';
@@ -29,20 +30,24 @@ export class CreateSimulationAddressDto
   @ApiProperty({ description: 'address street.' })
   @IsString()
   @MaxLength(50)
+  @IsOptional()
   street: string;
 
   @ApiProperty({ description: 'address complement.' })
   @IsString()
+  @IsOptional()
   @MaxLength(50)
   complement: string;
 
   @ApiProperty({ description: 'address neighbour.' })
   @MaxLength(50)
+  @IsOptional()
   @IsString()
   neighborhood: string;
 
   @ApiProperty({ description: 'address city.' })
   @IsString()
+  @IsOptional()
   @MaxLength(30)
   city: string;
 
@@ -50,6 +55,7 @@ export class CreateSimulationAddressDto
   @Transform(StringUppercaseTransform, { toClassOnly: true })
   @IsString()
   @Length(2, 2)
+  @IsOptional()
   @IsUppercase()
   state: string;
 }

@@ -45,11 +45,13 @@ model Model {
 
 model Simulations {
   id    Int     @default(autoincrement()) @id
-  name String 
+  name String?
   cpf String
   phone String
   birthDate DateTime
-  email String 
+  email String?
+  carValue Int?
+  initPayment Int?
   income Int
   haveHelp Boolean
   dirtyName Boolean
@@ -61,12 +63,12 @@ model Simulations {
 model Address {
   id    Int     @default(autoincrement()) @id
   cep String 
-  street String
+  street String?
   number Int
-  complement String
-  neighborhood String
-  city String
-  state String
+  complement String?
+  neighborhood String?
+  city String?
+  state String?
   simulationId Int
   simulation Simulations @relation(fields: [simulationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
