@@ -36,7 +36,7 @@ const Input = ({
     setValue,
   } = useFormContext();
 
-  const { ref } = register(name);
+  const { ref, onBlur } = register(name);
   const refs = useMergeRefs(firstFieldRef, ref);
 
   function compareString(option: string, search: string) {
@@ -80,6 +80,10 @@ const Input = ({
     }
   };
 
+  const onBlurInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onClose();
+    onBlur(e);
+  };
   return (
     <>
       <Popover
@@ -98,7 +102,7 @@ const Input = ({
           ref={refs}
           autoComplete={"off"}
           onFocus={onOpen}
-          onBlur={onClose}
+          onBlur={onBlurInput}
         />
         <PopoverTrigger>
           <Box />

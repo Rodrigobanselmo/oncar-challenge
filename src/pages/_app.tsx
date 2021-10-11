@@ -5,20 +5,23 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Header } from "../components/shared/Header";
 import { queryClient } from "../services/queryClient";
 import { theme } from "../styles/theme";
+import { AuthProvider } from "../context/AuthContext";
 
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <CSSReset />
-        <Header />
-        <Component {...pageProps} />
-      </ChakraProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <CSSReset />
+          <Header />
+          <Component {...pageProps} />
+        </ChakraProvider>
 
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 export default MyApp;

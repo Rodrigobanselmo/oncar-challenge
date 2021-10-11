@@ -3,6 +3,7 @@ import React from "react";
 import { animateScroll as scroll } from "react-scroll";
 
 import { Pagination } from "../../components/shared/Pagination";
+import { useAuth } from "../../hooks/useAuth";
 import { useCars } from "../../services/hooks/Queries/useCars";
 import { IFilters } from "../../services/hooks/Queries/useCars/@interfaces";
 import { MainContainer } from "../shared/Container/Main";
@@ -15,6 +16,7 @@ export function MainHome(): JSX.Element {
   const [filters, setFilters] = React.useState<IFilters>({});
   const limit = useBreakpointValue({ base: 5, sm: 5, md: 6, xl: 10 });
   const { data, isLoading } = useCars(page, limit, filters);
+  const { isAuthenticated } = useAuth();
 
   const handleChangePage = (page: number) => {
     scroll.scrollTo(0, {
@@ -32,7 +34,7 @@ export function MainHome(): JSX.Element {
       </Heading>
 
       <CarFilter setFilters={setFilters}>
-        <AddCarModal />
+        {isAuthenticated && <AddCarModal />}
       </CarFilter>
 
       <CarTable data={data} isLoading={isLoading} />

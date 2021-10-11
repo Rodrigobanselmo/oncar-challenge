@@ -7,7 +7,7 @@ export function DarkModeSwitch(): JSX.Element {
   const theme = useTheme();
 
   return (
-    <Flex mr={["2rem", "3rem"]}>
+    <Flex mr={["1rem", "2rem", "3rem"]}>
       <FormControl display={{ base: "none", md: "flex" }} alignItems="center">
         <Switch isChecked={colorMode === "dark"} onChange={toggleColorMode} />
       </FormControl>

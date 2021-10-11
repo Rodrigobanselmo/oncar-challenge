@@ -8,15 +8,21 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useRef, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
+import { useCreateCar } from "../../../services/hooks/Mutations/useCreateCar";
+import { queryClient } from "../../../services/queryClient";
+import { GetModelBrandResponse } from "../../../services/hooks/Queries/useBrandModel/@interfaces";
 
 import { CarFormData } from "./@interfaces";
 import { carSchema } from "./@schemas/car.schema";
 import { CarInputs } from "./CarInputs";
+import { Brand } from "../../../@types/brands";
+import { Model } from "../../../@types/models";
 
 interface IProps {
   // setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
@@ -25,6 +31,8 @@ interface IProps {
 
 export function AddCarModal({}: IProps): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const setCar = useCreateCar();
 
   const form = useForm({
     resolver: yupResolver(
@@ -48,8 +56,30 @@ export function AddCarModal({}: IProps): JSX.Element {
     onClose();
   };
 
-  const handleCreateCar: SubmitHandler<CarFormData> = (values) => {
-    onCloseModal();
+  const handleCreateCar: SubmitHandler<CarFormData> = async (values) => {
+    const car = await setCar.mutateAsync(values);
+    if (car?.id) {
+      onCloseModal();
+      queryClient.setQueryData(
+        "brand-model",
+        (oldData: GetModelBrandResponse | any) => ({
+          brands: [
+            ...oldData.brands.filter((i: Brand) => i.name !== car.brandName),
+            { name: car.brandName, created_at: new Date() },
+          ],
+          models: [
+            ...oldData.models.filter((i: Model) => i.name !== car.modelName),
+            { name: car.modelName, created_at: new Date() },
+          ],
+        })
+      );
+      toast({
+        title: "Carro adicionado com sucesso",
+        status: "success",
+        duration: 3000,
+        position: "top-right",
+      });
+    }
     console.log(`values`, values);
   };
 
