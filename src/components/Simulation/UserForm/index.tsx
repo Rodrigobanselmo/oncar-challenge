@@ -42,7 +42,9 @@ export function UserForm({ onOpenScore, setScore }: IProps): JSX.Element {
     formState: { isSubmitting },
   } = form;
 
-  const handleSignIn: SubmitHandler<SimulationFormData> = async (values) => {
+  const handleUserSimulation: SubmitHandler<SimulationFormData> = async (
+    values
+  ) => {
     const simulation = await setSimulation.mutateAsync(values);
     if (simulation?.score) {
       setScore({ value: simulation.score, message: simulation.message });
@@ -61,7 +63,7 @@ export function UserForm({ onOpenScore, setScore }: IProps): JSX.Element {
         as="form"
         w="100%"
         flexDir="column"
-        onSubmit={handleSubmit(handleSignIn)}
+        onSubmit={handleSubmit(handleUserSimulation)}
       >
         <Autofill mb={10} mt={10} />
         <AboutUserInputs />

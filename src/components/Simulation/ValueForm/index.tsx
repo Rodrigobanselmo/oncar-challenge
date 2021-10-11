@@ -28,7 +28,7 @@ export function ValueForm({ onOpenForm, onCloseForm }: IProps): JSX.Element {
   } = form;
   const screenOffset = useBreakpointValue({ base: 620, md: 300 });
 
-  const handleSignIn: SubmitHandler<ValueFormData> = (values) => {
+  const handleUserSimulation: SubmitHandler<ValueFormData> = (values) => {
     onOpenForm();
     scroll.scrollTo(screenOffset || 300, {
       duration: 800,
@@ -45,7 +45,7 @@ export function ValueForm({ onOpenForm, onCloseForm }: IProps): JSX.Element {
         w="100%"
         flexDir="column"
         mt={16}
-        onSubmit={handleSubmit(handleSignIn)}
+        onSubmit={handleSubmit(handleUserSimulation)}
       >
         <ValueInputs />
         <Button
