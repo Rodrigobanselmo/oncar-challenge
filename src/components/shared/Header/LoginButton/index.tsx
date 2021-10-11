@@ -23,7 +23,13 @@ export function LoginNav(): JSX.Element {
         <Button
           fontSize={"sm"}
           onClick={isAuthenticated ? signOut : signIn}
-          leftIcon={isAuthenticated ? <UnlockIcon /> : <LockIcon />}
+          leftIcon={
+            isAuthenticated ? (
+              <UnlockIcon data-testid={"unlock_icon"} />
+            ) : (
+              <LockIcon data-testid={"lock_icon"} />
+            )
+          }
           href={"#"}
           iconSpacing={"10px"}
           variant={"main"}

@@ -1,10 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 import { LoginNav } from "..";
 import { AuthProvider } from "../../../../../context/AuthContext";
 import { theme } from "../../../../../styles/theme";
-import { BroadcastChannel } from "broadcast-channel";
 
 const MockLoginNav = () => {
   return (
@@ -24,11 +23,12 @@ describe("LoginButton Component", () => {
 
     expect(screen.getByText("Entrar")).toBeInTheDocument();
   });
-  // it("should change light mode to dark mode when clicked", () => {
-  //   render(<MockDarkModeSwitch />);
-  //   const darkModeSwitch = screen.getByTestId("dark_mode_switch_light");
-  //   fireEvent.click(darkModeSwitch);
 
-  //   expect(screen.getByTestId("dark_mode_switch_dark")).toBeInTheDocument();
-  // });
+  it("should be able to authenticate user when clicked", () => {
+    render(<MockLoginNav />);
+    const lockIcon = screen.getByTestId("lock_icon");
+    fireEvent.click(lockIcon);
+
+    expect(screen.getByTestId("unlock_icon")).toBeInTheDocument();
+  });
 });
