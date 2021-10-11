@@ -9,6 +9,9 @@
     "lint": "next lint",
     "test": "jest --watch --detectOpenHandles",
     "test:ci": "jest --ci",
+    "e2e": "start-test dev 3000 cy",
+    "cy": "cypress run",
+    "cy:headless": "cypress run",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
@@ -46,6 +49,7 @@
     "@types/react-scroll": "^1.8.3",
     "babel-jest": "^27.2.5",
     "broadcast-channel": "^4.2.0",
+    "cypress": "^8.6.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-config-prettier": "^8.3.0",
@@ -55,6 +59,7 @@
     "jest-dom": "^4.0.0",
     "prettier": "^2.4.1",
     "react-test-renderer": "^17.0.2",
+    "start-server-and-test": "^1.14.0",
     "ts-jest": "^27.0.5",
     "typescript": "4.4.3"
   }
