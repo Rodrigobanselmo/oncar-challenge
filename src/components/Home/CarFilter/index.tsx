@@ -1,5 +1,5 @@
 import { Button, Grid, GridItem, HStack, VStack } from "@chakra-ui/react";
-import React, { ChangeEvent, useMemo, useState, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 
 import { PRICES } from "../../../constants/prices.constants";
 import { useBrandModel } from "../../../services/hooks/Queries/useBrandModel";

@@ -1,9 +1,8 @@
 import { Center, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import type { NextPage } from "next";
-import { redirect } from "next/dist/server/api-utils";
 import { useEffect } from "react";
 
+import type { NextPage } from "next";
 const Home: NextPage = () => {
   const router = useRouter();
   const toast = useToast();

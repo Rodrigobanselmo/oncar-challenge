@@ -1,4 +1,4 @@
-import { Heading, useBreakpointValue, Button } from "@chakra-ui/react";
+import { Heading, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import { animateScroll as scroll } from "react-scroll";
 

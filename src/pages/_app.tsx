@@ -3,9 +3,9 @@ import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import { Header } from "../components/shared/Header";
+import { AuthProvider } from "../context/AuthContext";
 import { queryClient } from "../services/queryClient";
 import { theme } from "../styles/theme";
-import { AuthProvider } from "../context/AuthContext";
 
 import type { AppProps } from "next/app";
 

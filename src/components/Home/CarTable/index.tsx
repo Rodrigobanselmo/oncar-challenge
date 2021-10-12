@@ -1,9 +1,9 @@
-import { SimpleGrid, Box } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 
+import { GetCarsResponse } from "../../../services/hooks/Queries/useCars/@interfaces";
 import { CarCard } from "../Cards/Car";
 import { CarSkeleton } from "../Cards/CarSkeleton";
-import { GetCarsResponse } from "../../../services/hooks/Queries/useCars/@interfaces";
 
 interface IProps {
   data: GetCarsResponse | undefined;

@@ -1,11 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { ParsedUrlQuery } from "node:querystring";
+
 import { Car } from "../../@types/cars";
 import { MainCar } from "../../components/Cars";
-
 import { PageContainer } from "../../components/shared/Container/Page";
-import { MainSimulation } from "../../components/Simulation";
 import { FuelOptions } from "../../constants/fuel-options.constants";
 import api from "../../services/api";
 

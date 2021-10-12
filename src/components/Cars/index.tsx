@@ -1,5 +1,6 @@
 import { CalendarIcon } from "@chakra-ui/icons";
 import {
+  Grid,
   GridItem,
   Heading,
   HStack,
@@ -7,7 +8,6 @@ import {
   SimpleGrid,
   Text,
   useColorModeValue,
-  Grid,
 } from "@chakra-ui/react";
 import React from "react";
 import { FaGasPump } from "react-icons/fa";

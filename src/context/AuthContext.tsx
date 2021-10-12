@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { setCookie, parseCookies, destroyCookie } from "nookies";
 import { BroadcastChannel } from "broadcast-channel";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 type User = {
   email: string;
