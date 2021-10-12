@@ -1,11 +1,11 @@
 ## Getting Started
 
-First, go to the main-server branch on this project and follow the steps their to put the api serve online.
+First, if you want to run the API locally, go to the main-server branch on this project and follow the steps their to put the server online and then change3 in '/src/services/api.ts' to http://localhost:3333.
 
-Then clone this project with
+Then clone this branch with
 
 ```bash
-git clone git@github.com:Rodrigobanselmo/oncar-challenge.git
+git clone -b main-client --single-branch git@github.com:Rodrigobanselmo/oncar-challenge.git
 ```
 
 Finally run:
