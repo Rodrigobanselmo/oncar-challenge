@@ -3,7 +3,7 @@ import { masker } from "./index";
 
 export const kilometersMask = masker({
   masked: {
-    mask: "num Km",
+    mask: "num",
     blocks: {
       num: {
         mask: Number,
