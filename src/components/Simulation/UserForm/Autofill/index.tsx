@@ -1,21 +1,14 @@
 import {
   Box,
-  Button,
   BoxProps,
-  useDisclosure,
+  Button,
   Collapse,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useFormContext } from "react-hook-form";
-
-import { cepMask } from "../../../../utils/masks/cep.mask";
-import { currencyMask } from "../../../../utils/masks/currency.mask";
-import { numberMask } from "../../../../utils/masks/number.mask";
-import { InputForm } from "../../../shared/Forms/HookForm/Input";
-import { ChakraRadioGroup } from "../../../shared/Forms/HookForm/Ratio";
-import { SimulationFormData } from "../@interfaces";
 import faker from "faker/locale/pt_BR";
 import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
 const fakeData = {
   name: faker.name.findName(),

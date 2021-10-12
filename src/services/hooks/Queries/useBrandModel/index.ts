@@ -10,12 +10,6 @@ export async function getBrands(): Promise<GetModelBrandResponse> {
   const brands = responseBrand.data.sort((a, b) => sortAsc(a, b, "name"));
   const models = responseModel.data.sort((a, b) => sortAsc(a, b, "name"));
 
-  await new Promise((res) =>
-    setTimeout(() => {
-      res("");
-    }, 1000)
-  );
-
   return {
     models,
     brands,

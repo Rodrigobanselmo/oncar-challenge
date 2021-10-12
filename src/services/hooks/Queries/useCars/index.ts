@@ -17,12 +17,6 @@ export async function getCars(
     },
   });
 
-  await new Promise((res) =>
-    setTimeout(() => {
-      res("");
-    }, 1000)
-  );
-
   const cars = response.data;
   const totalCount = Number(response.headers["x-total-count"]);
 
