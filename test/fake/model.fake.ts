@@ -1,5 +1,5 @@
 import * as faker from 'faker/locale/pt_BR';
-import { CreateModelDto } from '../../src/modules/modelCar/dto/create-Model.dto';
+import { CreateModelDto } from '../../src/modules/modelCar/dto/create-model.dto';
 
 export class FakerModel implements CreateModelDto {
   constructor(private readonly initialBrand?: string) {
