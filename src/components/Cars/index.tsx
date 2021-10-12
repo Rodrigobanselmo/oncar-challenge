@@ -1,29 +1,49 @@
-import { CalendarIcon } from "@chakra-ui/icons";
+import { CalendarIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Grid,
   GridItem,
   Heading,
   HStack,
   Icon,
+  IconButton,
   SimpleGrid,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { FaGasPump } from "react-icons/fa";
 import { IoIosSpeedometer } from "react-icons/io";
 
 import { Car } from "../../@types/cars";
+import { useAuth } from "../../hooks/useAuth";
+import { useDeleteCar } from "../../services/hooks/Mutations/useDeleteCar";
 import { MainContainer } from "../shared/Container/Main";
 import { ChakraNextImage } from "../shared/NextImage";
 
 export function MainCar({ car }: { car: Car }): JSX.Element {
+  const { isAuthenticated } = useAuth();
+  const onDeleteCar = useDeleteCar();
+  const toast = useToast();
+
+  const handleDeleteCar = () => {
+    if (isAuthenticated) return onDeleteCar.mutate(car.id);
+
+    toast({
+      title: "Você não tem permissão para deletar um veículo",
+      status: "warning",
+      duration: 2000,
+      position: "bottom",
+    });
+  };
+
   return (
     <MainContainer>
       <Heading textAlign="center" mb={6}>
         Pagina Estática
       </Heading>
       <Grid
+        position="relative"
         boxShadow={useColorModeValue(
           "0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);",
           "0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.35);"
@@ -86,6 +106,16 @@ export function MainCar({ car }: { car: Car }): JSX.Element {
             </Text>
           </GridItem>
         )}
+        <IconButton
+          isLoading={onDeleteCar.isLoading}
+          onClick={handleDeleteCar}
+          icon={<DeleteIcon boxSize={6} />}
+          variant={"ghost"}
+          position="absolute"
+          right={10}
+          bottom={10}
+          aria-label={"delete car"}
+        />
       </Grid>
     </MainContainer>
   );

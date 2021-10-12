@@ -16,7 +16,6 @@ export function MainHome(): JSX.Element {
   const [filters, setFilters] = React.useState<IFilters>({});
   const limit = useBreakpointValue({ base: 5, sm: 5, md: 6, xl: 10 });
   const { data, isLoading } = useCars(page, limit, filters);
-  const { isAuthenticated } = useAuth();
 
   const handleChangePage = (page: number) => {
     scroll.scrollTo(0, {
@@ -34,7 +33,7 @@ export function MainHome(): JSX.Element {
       </Heading>
 
       <CarFilter setFilters={setFilters}>
-        {isAuthenticated && <AddCarModal />}
+        <AddCarModal />
       </CarFilter>
 
       <CarTable data={data} isLoading={isLoading} />

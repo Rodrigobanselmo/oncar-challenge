@@ -23,6 +23,7 @@ import { carSchema } from "./@schemas/car.schema";
 import { CarInputs } from "./CarInputs";
 import { Brand } from "../../../@types/brands";
 import { Model } from "../../../@types/models";
+import { useAuth } from "../../../hooks/useAuth";
 
 interface IProps {
   // setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
@@ -32,6 +33,7 @@ interface IProps {
 export function AddCarModal({}: IProps): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const { isAuthenticated } = useAuth();
   const setCar = useCreateCar();
 
   const form = useForm({
@@ -83,10 +85,21 @@ export function AddCarModal({}: IProps): JSX.Element {
     console.log(`values`, values);
   };
 
+  const handleOpenModal = () => {
+    if (isAuthenticated) return onOpen();
+
+    toast({
+      title: "Você não tem permissão para criar um veículo",
+      status: "warning",
+      duration: 2000,
+      position: "bottom",
+    });
+  };
+
   return (
     <>
       <Button
-        onClick={onOpen}
+        onClick={handleOpenModal}
         size={"md"}
         w={["100%", "100%", 200]}
         variant={"main"}
