@@ -134,6 +134,7 @@ export function CarFilter({ setFilters, children }: IProps): JSX.Element {
         <Button
           onClick={handleSearchCars}
           isLoading={isLoading}
+          loadingText={"waiting Heroku to start..."}
           size={"md"}
           w={["100%", "100%", 400]}
           variant={"main"}

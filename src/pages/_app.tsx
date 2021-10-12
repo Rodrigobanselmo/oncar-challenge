@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </ChakraProvider>
 
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
     </AuthProvider>
   );
